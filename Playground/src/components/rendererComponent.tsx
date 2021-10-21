@@ -54,7 +54,7 @@ export class RenderingComponent extends React.Component<IRenderingComponentProps
 
             if (state) {
                 this._scene.debugLayer.show({
-                    embedMode: true,
+                    embedMode: true,useLng:'en',
                 });
             } else {
                 this._scene.debugLayer.hide();

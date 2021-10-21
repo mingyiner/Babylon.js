@@ -9,7 +9,7 @@ import { MeshParticleEmitter } from 'babylonjs/Particles/EmitterTypes/meshPartic
 import { CheckBoxLineComponent } from '../../../../../sharedUiComponents/lines/checkBoxLineComponent';
 import { MeshPickerComponent } from '../../../lines/meshPickerComponent';
 import { Scene } from 'babylonjs/scene';
-
+import {getTrans} from '../../../../../translationLng';
 interface IMeshEmitterGridComponentProps {
     globalState: GlobalState;
     emitter: MeshParticleEmitter,
@@ -30,20 +30,20 @@ export class MeshEmitterGridComponent extends React.Component<IMeshEmitterGridCo
 
         return (
             <>        
-                <MeshPickerComponent globalState={this.props.globalState} label="Source" scene={this.props.scene} 
+                <MeshPickerComponent globalState={this.props.globalState} label={getTrans('Source')}scene={this.props.scene} 
                     onPropertyChangedObservable={this.props.onPropertyChangedObservable}
                     target={this.props.emitter} property="mesh"/>       
                 {
                     !emitter.useMeshNormalsForDirection &&
-                    <Vector3LineComponent label="Direction 1" target={emitter} propertyName="direction1"
+                    <Vector3LineComponent label={getTrans('Direction1')} target={emitter} propertyName="direction1"
                         onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
                 }
                 {
                     !emitter.useMeshNormalsForDirection &&
-                    <Vector3LineComponent label="Direction 2" target={emitter} propertyName="direction2"
+                    <Vector3LineComponent label={getTrans('Direction2')} target={emitter} propertyName="direction2"
                         onPropertyChangedObservable={this.props.onPropertyChangedObservable} />      
                 }
-                <CheckBoxLineComponent label="Use normals for direction" target={emitter} propertyName="useMeshNormalsForDirection" 
+                <CheckBoxLineComponent label={getTrans('Usenormalsfordirection')} target={emitter} propertyName="useMeshNormalsForDirection" 
                     onPropertyChangedObservable={this.props.onPropertyChangedObservable} />                                    
             </>
         );

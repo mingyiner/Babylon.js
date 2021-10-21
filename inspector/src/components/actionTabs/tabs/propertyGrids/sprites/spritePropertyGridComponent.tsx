@@ -16,7 +16,7 @@ import { ButtonLineComponent } from '../../../../../sharedUiComponents/lines/but
 import { TextureHelper } from '../../../../../textureHelper';
 import { Nullable } from 'babylonjs/types';
 import { Color4LineComponent } from "../../../../../sharedUiComponents/lines/color4LineComponent";
-
+import {getTrans} from '../../../../../translationLng';
 interface ISpritePropertyGridComponentProps {
     globalState: GlobalState;
     sprite: Sprite;
@@ -146,21 +146,21 @@ export class SpritePropertyGridComponent extends React.Component<ISpriteProperty
 
         return (
             <div className="pane">
-                <LineContainerComponent title="GENERAL" selection={this.props.globalState}>
-                    <TextInputLineComponent lockObject={this.props.lockObject} label="Name" target={sprite} propertyName="name" onPropertyChangedObservable={this.props.onPropertyChangedObservable}/>
-                    <TextLineComponent label="Unique ID" value={sprite.uniqueId.toString()} />
-                    <TextLineComponent label="Link to manager" value={manager.name} onLink={() => this.onManagerLink()} />
-                    <CheckBoxLineComponent label="Visible" target={sprite} propertyName="isVisible" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <ButtonLineComponent label="Dispose" onClick={() => this.disposeSprite()} />
+                <LineContainerComponent title={getTrans('GENERAL')} selection={this.props.globalState}>
+                    <TextInputLineComponent lockObject={this.props.lockObject} label={getTrans('Name')} target={sprite} propertyName="name" onPropertyChangedObservable={this.props.onPropertyChangedObservable}/>
+                    <TextLineComponent label={getTrans('UniqueID')} value={sprite.uniqueId.toString()} />
+                    <TextLineComponent label={getTrans('Linktomanager')} value={manager.name} onLink={() => this.onManagerLink()} />
+                    <CheckBoxLineComponent label={getTrans('Visible')} target={sprite} propertyName="isVisible" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <ButtonLineComponent label={getTrans('Dispose')} onClick={() => this.disposeSprite()} />
                 </LineContainerComponent>
-                <LineContainerComponent title="PROPERTIES" selection={this.props.globalState}>
-                    <Vector3LineComponent label="Position" target={sprite} propertyName="position" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <CheckBoxLineComponent label="Pickable" target={sprite} propertyName="isPickable" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <CheckBoxLineComponent label="Use alpha for picking" target={sprite} propertyName="useAlphaForPicking" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <Color4LineComponent label="Color" target={sprite} propertyName="color" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <SliderLineComponent useEuler={this.props.globalState.onlyUseEulers} label="Angle" target={sprite} propertyName="angle" minimum={0} maximum={2 * Math.PI} step={0.01} onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                <LineContainerComponent title={getTrans('PROPERTIES')} selection={this.props.globalState}>
+                    <Vector3LineComponent label={getTrans('Position')} target={sprite} propertyName="position" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <CheckBoxLineComponent label={getTrans('Pickable')} target={sprite} propertyName="isPickable" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <CheckBoxLineComponent label={getTrans('Usealphaforpicking')} target={sprite} propertyName="useAlphaForPicking" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <Color4LineComponent label={getTrans('Color')} target={sprite} propertyName="color" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <SliderLineComponent useEuler={this.props.globalState.onlyUseEulers} label={getTrans('Angle')} target={sprite} propertyName="angle" minimum={0} maximum={2 * Math.PI} step={0.01} onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
                 </LineContainerComponent>
-                <LineContainerComponent title="CELL" selection={this.props.globalState}>
+                <LineContainerComponent title={getTrans('CELL')} selection={this.props.globalState}>
                     <canvas ref={this.canvasRef} className="preview" style={{
                         margin: "auto",
                         marginTop: "4px",
@@ -168,21 +168,21 @@ export class SpritePropertyGridComponent extends React.Component<ISpriteProperty
                         display: "grid",
                         height: "108px"
                     }}/>
-                    <SliderLineComponent label="Cell index" decimalCount={0} target={sprite} propertyName="cellIndex" minimum={0} maximum={maxCellCount} step={1} onPropertyChangedObservable={this.props.onPropertyChangedObservable} 
+                    <SliderLineComponent label={getTrans('Cellindex')} decimalCount={0} target={sprite} propertyName="cellIndex" minimum={0} maximum={maxCellCount} step={1} onPropertyChangedObservable={this.props.onPropertyChangedObservable} 
                         onChange={() => this.forceUpdate()}
                         />
-                    <CheckBoxLineComponent label="Invert U axis" target={sprite} propertyName="invertU" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <CheckBoxLineComponent label="Invert V axis" target={sprite} propertyName="invertV" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <CheckBoxLineComponent label={getTrans('InvertUaxis')} target={sprite} propertyName="invertU" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <CheckBoxLineComponent label={getTrans('InvertVaxis')} target={sprite} propertyName="invertV" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
                 </LineContainerComponent>
-                <LineContainerComponent title="SCALE" selection={this.props.globalState}>
-                    <FloatLineComponent label="Width" lockObject={this.props.lockObject} target={sprite} propertyName="width" min={0} onPropertyChangedObservable={this.props.onPropertyChangedObservable}/>
-                    <FloatLineComponent label="Height" lockObject={this.props.lockObject} target={sprite} propertyName="height" min={0} onPropertyChangedObservable={this.props.onPropertyChangedObservable}/>
+                <LineContainerComponent title={getTrans('Scale')} selection={this.props.globalState}>
+                    <FloatLineComponent label={getTrans('Width')} lockObject={this.props.lockObject} target={sprite} propertyName="width" min={0} onPropertyChangedObservable={this.props.onPropertyChangedObservable}/>
+                    <FloatLineComponent label={getTrans('Height')} lockObject={this.props.lockObject} target={sprite} propertyName="height" min={0} onPropertyChangedObservable={this.props.onPropertyChangedObservable}/>
                 </LineContainerComponent>
-                <LineContainerComponent title="ANIMATION" selection={this.props.globalState}>
-                    <FloatLineComponent label="Start cell" isInteger={true} lockObject={this.props.lockObject} target={sprite} propertyName="fromIndex" min={0} max={maxCellCount} onPropertyChangedObservable={this.props.onPropertyChangedObservable}/>
-                    <FloatLineComponent label="End cell" isInteger={true} lockObject={this.props.lockObject} target={sprite} propertyName="toIndex" min={0} max={maxCellCount} onPropertyChangedObservable={this.props.onPropertyChangedObservable}/>
-                    <CheckBoxLineComponent label="Loop" target={sprite} propertyName="loopAnimation" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <FloatLineComponent label="Delay" lockObject={this.props.lockObject} target={sprite} propertyName="delay" digits={0} min={0} isInteger={true} onPropertyChangedObservable={this.props.onPropertyChangedObservable}/>
+                <LineContainerComponent title={getTrans('ANIMATION')}selection={this.props.globalState}>
+                    <FloatLineComponent label={getTrans('Startcell')} isInteger={true} lockObject={this.props.lockObject} target={sprite} propertyName="fromIndex" min={0} max={maxCellCount} onPropertyChangedObservable={this.props.onPropertyChangedObservable}/>
+                    <FloatLineComponent label={getTrans('Endcell')} isInteger={true} lockObject={this.props.lockObject} target={sprite} propertyName="toIndex" min={0} max={maxCellCount} onPropertyChangedObservable={this.props.onPropertyChangedObservable}/>
+                    <CheckBoxLineComponent label={getTrans('Loop')} target={sprite} propertyName="loopAnimation" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <FloatLineComponent label={getTrans('Delay')}lockObject={this.props.lockObject} target={sprite} propertyName="delay" digits={0} min={0} isInteger={true} onPropertyChangedObservable={this.props.onPropertyChangedObservable}/>
                     <ButtonLineComponent label={sprite.animationStarted ? "Stop" : "Start"} onClick={() => this.switchPlayStopState()} />
                 </LineContainerComponent>
             </div>

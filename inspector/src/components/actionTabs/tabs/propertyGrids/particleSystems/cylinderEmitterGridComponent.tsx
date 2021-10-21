@@ -7,7 +7,7 @@ import { SliderLineComponent } from '../../../../../sharedUiComponents/lines/sli
 import { CylinderParticleEmitter } from 'babylonjs/Particles/EmitterTypes/cylinderParticleEmitter';
 import { FloatLineComponent } from '../../../../../sharedUiComponents/lines/floatLineComponent';
 import { LockObject } from '../../../../../sharedUiComponents/tabs/propertyGrids/lockObject';
-
+import {getTrans} from '../../../../../translationLng';
 interface ICylinderEmitterGridComponentProps {
     globalState: GlobalState;
     emitter: CylinderParticleEmitter,
@@ -25,11 +25,11 @@ export class CylinderEmitterGridComponent extends React.Component<ICylinderEmitt
         let emitter = this.props.emitter;
         return (
             <>                    
-                <FloatLineComponent lockObject={this.props.lockObject} label="Radius" target={emitter} propertyName="radius" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                <FloatLineComponent lockObject={this.props.lockObject} label="Height" target={emitter} propertyName="height" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                <SliderLineComponent label="Radius range" target={emitter} propertyName="radiusRange" minimum={0} maximum={1} step={0.01} 
+                <FloatLineComponent lockObject={this.props.lockObject} label={getTrans('Radius_')} target={emitter} propertyName="radius" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                <FloatLineComponent lockObject={this.props.lockObject} label={getTrans('Height')} target={emitter} propertyName="height" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                <SliderLineComponent label={getTrans('Radiusrange')} target={emitter} propertyName="radiusRange" minimum={0} maximum={1} step={0.01} 
                     onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                <SliderLineComponent label="Direction randomizer" target={emitter} propertyName="directionRandomizer" minimum={0} maximum={1} step={0.01} 
+                <SliderLineComponent label={getTrans('Directionrandomizer')} target={emitter} propertyName="directionRandomizer" minimum={0} maximum={1} step={0.01} 
                     onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
             </>
         );

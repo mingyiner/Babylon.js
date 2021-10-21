@@ -11,7 +11,7 @@ import { Engine } from "babylonjs/Engines/engine";
 import { ValueLineComponent } from "../../../sharedUiComponents/lines/valueLineComponent";
 import { BooleanLineComponent } from "../../../sharedUiComponents/lines/booleanLineComponent";
 import { PerformanceViewerComponent } from "./performanceViewer/performanceViewerComponent";
-
+import {getTrans} from '../../../translationLng';
 export class StatisticsTabComponent extends PaneComponent {
     private _sceneInstrumentation: Nullable<SceneInstrumentation>;
     private _engineInstrumentation: Nullable<EngineInstrumentation>;
@@ -71,59 +71,59 @@ export class StatisticsTabComponent extends PaneComponent {
 
         return (
             <div className="pane">
-                <TextLineComponent label="Version" value={Engine.Version} color="rgb(113, 159, 255)" />
-                <ValueLineComponent label="FPS" value={engine.getFps()} fractionDigits={0} />
+                <TextLineComponent label={getTrans('Version')} value={Engine.Version} color="rgb(113, 159, 255)" />
+                <ValueLineComponent label={getTrans('FPS')} value={engine.getFps()} fractionDigits={0} />
                 <PerformanceViewerComponent scene={scene} />
-                <LineContainerComponent title="COUNT">
-                    <TextLineComponent label="Total meshes" value={scene.meshes.length.toString()} />
-                    <TextLineComponent label="Active meshes" value={scene.getActiveMeshes().length.toString()} />
-                    <TextLineComponent label="Active indices" value={scene.getActiveIndices().toString()} />
-                    <TextLineComponent label="Active faces" value={(scene.getActiveIndices() / 3).toString()} />
-                    <TextLineComponent label="Active bones" value={scene.getActiveBones().toString()} />
-                    <TextLineComponent label="Active particles" value={scene.getActiveParticles().toString()} />
-                    <TextLineComponent label="Draw calls" value={sceneInstrumentation.drawCallsCounter.current.toString()} />
-                    <TextLineComponent label="Total lights" value={scene.lights.length.toString()} />
-                    <TextLineComponent label="Total vertices" value={scene.getTotalVertices().toString()} />
-                    <TextLineComponent label="Total materials" value={scene.materials.length.toString()} />
-                    <TextLineComponent label="Total textures" value={scene.textures.length.toString()} />
+                <LineContainerComponent title={getTrans('COUNT')}>
+                    <TextLineComponent label={getTrans('Totalmeshes')} value={scene.meshes.length.toString()} />
+                    <TextLineComponent label={getTrans('Activemeshes')} value={scene.getActiveMeshes().length.toString()} />
+                    <TextLineComponent label={getTrans('Activeindices')} value={scene.getActiveIndices().toString()} />
+                    <TextLineComponent label={getTrans('Activefaces')} value={(scene.getActiveIndices() / 3).toString()} />
+                    <TextLineComponent label={getTrans('Activebone')} value={scene.getActiveBones().toString()} />
+                    <TextLineComponent label={getTrans('Activeparticles')} value={scene.getActiveParticles().toString()} />
+                    <TextLineComponent label={getTrans('Drawcalls')} value={sceneInstrumentation.drawCallsCounter.current.toString()} />
+                    <TextLineComponent label={getTrans('Totallights')} value={scene.lights.length.toString()} />
+                    <TextLineComponent label={getTrans('Totalvertices')} value={scene.getTotalVertices().toString()} />
+                    <TextLineComponent label={getTrans('Totalmaterials')} value={scene.materials.length.toString()} />
+                    <TextLineComponent label={getTrans('Totaltextures')} value={scene.textures.length.toString()} />
                 </LineContainerComponent>
-                <LineContainerComponent title="FRAME STEPS DURATION">
-                    <ValueLineComponent label="Absolute FPS" value={1000.0 / this._sceneInstrumentation!.frameTimeCounter.lastSecAverage} fractionDigits={0} />
-                    <ValueLineComponent label="Meshes selection" value={sceneInstrumentation.activeMeshesEvaluationTimeCounter.lastSecAverage} units="ms" />
-                    <ValueLineComponent label="Render targets" value={sceneInstrumentation.renderTargetsRenderTimeCounter.lastSecAverage} units="ms" />
-                    <ValueLineComponent label="Particles" value={sceneInstrumentation.particlesRenderTimeCounter.lastSecAverage} units="ms" />
-                    <ValueLineComponent label="Sprites" value={sceneInstrumentation.spritesRenderTimeCounter.lastSecAverage} units="ms" />
-                    <ValueLineComponent label="Animations" value={sceneInstrumentation.animationsTimeCounter.lastSecAverage} units="ms" />
-                    <ValueLineComponent label="Physics" value={sceneInstrumentation.physicsTimeCounter.lastSecAverage} units="ms" />
-                    <ValueLineComponent label="Render" value={sceneInstrumentation.renderTimeCounter.lastSecAverage} units="ms" />
-                    <ValueLineComponent label="Frame total" value={sceneInstrumentation.frameTimeCounter.lastSecAverage} units="ms" />
-                    <ValueLineComponent label="Inter-frame" value={sceneInstrumentation.interFrameTimeCounter.lastSecAverage} units="ms" />
-                    <ValueLineComponent label="GPU Frame time" value={engineInstrumentation.gpuFrameTimeCounter.lastSecAverage * 0.000001} units="ms" />
-                    <ValueLineComponent label="GPU Frame time (average)" value={engineInstrumentation.gpuFrameTimeCounter.average * 0.000001} units="ms" />
+                <LineContainerComponent title={getTrans('FRAMESTEPSDURATION')}>
+                    <ValueLineComponent label={getTrans('AbsoluteFPS')} value={1000.0 / this._sceneInstrumentation!.frameTimeCounter.lastSecAverage} fractionDigits={0} />
+                    <ValueLineComponent label={getTrans('Meshesselection')} value={sceneInstrumentation.activeMeshesEvaluationTimeCounter.lastSecAverage} units="ms" />
+                    <ValueLineComponent label={getTrans('Rendertargets')} value={sceneInstrumentation.renderTargetsRenderTimeCounter.lastSecAverage} units="ms" />
+                    <ValueLineComponent label={getTrans('Particles')} value={sceneInstrumentation.particlesRenderTimeCounter.lastSecAverage} units="ms" />
+                    <ValueLineComponent label={getTrans('Sprites')} value={sceneInstrumentation.spritesRenderTimeCounter.lastSecAverage} units="ms" />
+                    <ValueLineComponent label={getTrans('Animations')} value={sceneInstrumentation.animationsTimeCounter.lastSecAverage} units="ms" />
+                    <ValueLineComponent label={getTrans('Physics')} value={sceneInstrumentation.physicsTimeCounter.lastSecAverage} units="ms" />
+                    <ValueLineComponent label={getTrans('Render')} value={sceneInstrumentation.renderTimeCounter.lastSecAverage} units="ms" />
+                    <ValueLineComponent label={getTrans('Frametotal')} value={sceneInstrumentation.frameTimeCounter.lastSecAverage} units="ms" />
+                    <ValueLineComponent label={getTrans('Interframe')} value={sceneInstrumentation.interFrameTimeCounter.lastSecAverage} units="ms" />
+                    <ValueLineComponent label={getTrans('GPUFrametime')} value={engineInstrumentation.gpuFrameTimeCounter.lastSecAverage * 0.000001} units="ms" />
+                    <ValueLineComponent label={getTrans('GPUFrametimeaverage')} value={engineInstrumentation.gpuFrameTimeCounter.average * 0.000001} units="ms" />
                 </LineContainerComponent>
-                <LineContainerComponent title="SYSTEM INFO">
-                    <TextLineComponent label="Resolution" value={engine.getRenderWidth() + "x" + engine.getRenderHeight()} />
-                    <TextLineComponent label="Hardware scaling level" value={engine.getHardwareScalingLevel().toString()} />
-                    <TextLineComponent label="Engine" value={engine.description} />
-                    <BooleanLineComponent label="Std derivatives" value={caps.standardDerivatives} />
-                    <BooleanLineComponent label="Compressed textures" value={caps.s3tc !== undefined} />
-                    <BooleanLineComponent label="Hardware instances" value={caps.instancedArrays} />
-                    <BooleanLineComponent label="Texture float" value={caps.textureFloat} />
-                    <BooleanLineComponent label="Texture half-float" value={caps.textureHalfFloat} />
-                    <BooleanLineComponent label="Render to texture float" value={caps.textureFloatRender} />
-                    <BooleanLineComponent label="Render to texture half-float" value={caps.textureHalfFloatRender} />
-                    <BooleanLineComponent label="32bits indices" value={caps.uintIndices} />
-                    <BooleanLineComponent label="Fragment depth" value={caps.fragmentDepthSupported} />
-                    <BooleanLineComponent label="High precision shaders" value={caps.highPrecisionShaderSupported} />
-                    <BooleanLineComponent label="Draw buffers" value={caps.drawBuffersExtension} />
-                    <BooleanLineComponent label="Vertex array object" value={caps.vertexArrayObject} />
-                    <BooleanLineComponent label="Timer query" value={caps.timerQuery !== undefined} />
-                    <BooleanLineComponent label="Stencil" value={engine.isStencilEnable} />
-                    <BooleanLineComponent label="Parallel shader compilation" value={caps.parallelShaderCompile != null} />
-                    <ValueLineComponent label="Max textures units" value={caps.maxTexturesImageUnits} fractionDigits={0} />
-                    <ValueLineComponent label="Max textures size" value={caps.maxTextureSize} fractionDigits={0} />
-                    <ValueLineComponent label="Max anisotropy" value={caps.maxAnisotropy} fractionDigits={0} />
-                    <TextLineComponent label="Driver" value={engine.getGlInfo().renderer} />
+                <LineContainerComponent title={getTrans('SYSTEMINFO')}>
+                    <TextLineComponent label={getTrans('Resolution')} value={engine.getRenderWidth() + "x" + engine.getRenderHeight()} />
+                    <TextLineComponent label={getTrans('Hardwarescalinglevel')} value={engine.getHardwareScalingLevel().toString()} />
+                    <TextLineComponent label={getTrans('Engine')} value={engine.description} />
+                    <BooleanLineComponent label={getTrans('Stdderivatives')} value={caps.standardDerivatives} />
+                    <BooleanLineComponent label={getTrans('Compressedtextures')} value={caps.s3tc !== undefined} />
+                    <BooleanLineComponent label={getTrans('Hardwareinstances')} value={caps.instancedArrays} />
+                    <BooleanLineComponent label={getTrans('Texturefloat')} value={caps.textureFloat} />
+                    <BooleanLineComponent label={getTrans('Texturehalf_loat')} value={caps.textureHalfFloat} />
+                    <BooleanLineComponent label={getTrans('Rendertotexturefloat')} value={caps.textureFloatRender} />
+                    <BooleanLineComponent label={getTrans('Rendertotexturehalffloat')} value={caps.textureHalfFloatRender} />
+                    <BooleanLineComponent label={getTrans('bitsindices32')} value={caps.uintIndices} />
+                    <BooleanLineComponent label={getTrans('Fragmentdepth')} value={caps.fragmentDepthSupported} />
+                    <BooleanLineComponent label={getTrans('Highprecisionhaders')} value={caps.highPrecisionShaderSupported} />
+                    <BooleanLineComponent label={getTrans('Drawbuffers')} value={caps.drawBuffersExtension} />
+                    <BooleanLineComponent label={getTrans('Vertexarrayobject')} value={caps.vertexArrayObject} />
+                    <BooleanLineComponent label={getTrans('Timerquery')} value={caps.timerQuery !== undefined} />
+                    <BooleanLineComponent label={getTrans('Stencil')} value={engine.isStencilEnable} />
+                    <BooleanLineComponent label={getTrans('Parallelshadercompilation')} value={caps.parallelShaderCompile != null} />
+                    <ValueLineComponent label={getTrans('Maxtexturesunits')} value={caps.maxTexturesImageUnits} fractionDigits={0} />
+                    <ValueLineComponent label={getTrans('Maxtexturessize')} value={caps.maxTextureSize} fractionDigits={0} />
+                    <ValueLineComponent label={getTrans('Maxanisotropy')} value={caps.maxAnisotropy} fractionDigits={0} />
+                    <TextLineComponent label={getTrans('Driver')} value={engine.getGlInfo().renderer} />
                 </LineContainerComponent>
             </div>
         );

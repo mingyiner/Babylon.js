@@ -36,7 +36,7 @@ import { HexLineComponent } from "../../../../../sharedUiComponents/lines/hexLin
 import { SkeletonViewer } from "babylonjs/Debug/skeletonViewer";
 import { ShaderMaterial } from "babylonjs/Materials/shaderMaterial";
 import { IInspectableOptions } from "babylonjs/Misc/iInspectable";
-
+import {getTrans} from '../../../../../translationLng';
 interface IMeshPropertyGridComponentProps {
     globalState: GlobalState;
     mesh: Mesh;
@@ -360,14 +360,14 @@ export class MeshPropertyGridComponent extends React.Component<
         }
 
         var algorithmOptions = [
-            { label: "Accurate", value: AbstractMesh.OCCLUSION_ALGORITHM_TYPE_ACCURATE },
-            { label: "Conservative", value: AbstractMesh.OCCLUSION_ALGORITHM_TYPE_CONSERVATIVE },
+            { label: getTrans('Accurate'), value: AbstractMesh.OCCLUSION_ALGORITHM_TYPE_ACCURATE },
+            { label: getTrans('Conservative'), value: AbstractMesh.OCCLUSION_ALGORITHM_TYPE_CONSERVATIVE },
         ];
 
         var occlusionTypeOptions = [
-            { label: "None", value: AbstractMesh.OCCLUSION_TYPE_NONE },
-            { label: "Optimistic", value: AbstractMesh.OCCLUSION_TYPE_OPTIMISTIC },
-            { label: "Strict", value: AbstractMesh.OCCLUSION_TYPE_STRICT },
+            { label: getTrans('None'), value: AbstractMesh.OCCLUSION_TYPE_NONE },
+            { label: getTrans('Optimistic'), value: AbstractMesh.OCCLUSION_TYPE_OPTIMISTIC },
+            { label: getTrans('Strict'), value: AbstractMesh.OCCLUSION_TYPE_STRICT },
         ];
 
         let sortedMaterials = scene.materials.slice(0).sort((a, b) => (a.name || "no name").localeCompare(b.name || "no name"));
@@ -380,7 +380,7 @@ export class MeshPropertyGridComponent extends React.Component<
         });
 
         materialOptions.splice(0, 0, {
-            label: "None (Default Fallback)",
+            label: getTrans('NoneDefaultFallback'),
             value: -1,
         });
 
@@ -394,22 +394,22 @@ export class MeshPropertyGridComponent extends React.Component<
         return (
             <div className="pane">
                 <CustomPropertyGridComponent globalState={this.props.globalState} target={mesh} lockObject={this.props.lockObject} onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                <LineContainerComponent title="GENERAL" selection={this.props.globalState}>
+                <LineContainerComponent title={getTrans('GENERAL')} selection={this.props.globalState}>
                     <TextLineComponent label="ID" value={mesh.id} />
-                    <TextInputLineComponent lockObject={this.props.lockObject} label="Name" target={mesh} propertyName="name" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <TextLineComponent label="Unique ID" value={mesh.uniqueId.toString()} />
-                    <TextLineComponent label="Class" value={mesh.getClassName()} />
-                    <TextLineComponent label="Vertices" value={mesh.getTotalVertices().toString()} />
-                    <TextLineComponent label="Faces" value={(mesh.getTotalIndices() / 3).toFixed(0)} />
-                    <TextLineComponent label="Sub-meshes" value={mesh.subMeshes ? mesh.subMeshes.length.toString() : "0"} />
-                    {mesh.parent && <TextLineComponent label="Parent" value={mesh.parent.name} onLink={() => this.props.globalState.onSelectionChangedObservable.notifyObservers(mesh.parent)} />}
-                    {mesh.skeleton && <TextLineComponent label="Skeleton" value={mesh.skeleton.name} onLink={() => this.onSkeletonLink()} />}
-                    <CheckBoxLineComponent label="Is enabled" isSelected={() => mesh.isEnabled()} onSelect={(value) => mesh.setEnabled(value)} />
-                    <CheckBoxLineComponent label="Is pickable" target={mesh} propertyName="isPickable" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    {mesh.material && (!mesh.material.reservedDataStore || !mesh.material.reservedDataStore.hidden) && <TextLineComponent label="Link to material" value={mesh.material.name} onLink={() => this.onMaterialLink()} />}
+                    <TextInputLineComponent lockObject={this.props.lockObject} label={getTrans('Name')} target={mesh} propertyName="name" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <TextLineComponent label={getTrans('UniqueID')} value={mesh.uniqueId.toString()} />
+                    <TextLineComponent label={getTrans('Class')} value={mesh.getClassName()} />
+                    <TextLineComponent label={getTrans('Vertices')} value={mesh.getTotalVertices().toString()} />
+                    <TextLineComponent label={getTrans('Faces')} value={(mesh.getTotalIndices() / 3).toFixed(0)} />
+                    <TextLineComponent label={getTrans('Submeshes')} value={mesh.subMeshes ? mesh.subMeshes.length.toString() : "0"} />
+                    {mesh.parent && <TextLineComponent label={getTrans('Parent')} value={mesh.parent.name} onLink={() => this.props.globalState.onSelectionChangedObservable.notifyObservers(mesh.parent)} />}
+                    {mesh.skeleton && <TextLineComponent label={getTrans('Skeleton')} value={mesh.skeleton.name} onLink={() => this.onSkeletonLink()} />}
+                    <CheckBoxLineComponent label={getTrans('Isenabled')} isSelected={() => mesh.isEnabled()} onSelect={(value) => mesh.setEnabled(value)} />
+                    <CheckBoxLineComponent label={getTrans('Ispickable')} target={mesh} propertyName="isPickable" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    {mesh.material && (!mesh.material.reservedDataStore || !mesh.material.reservedDataStore.hidden) && <TextLineComponent label={getTrans('Linktomaterial')} value={mesh.material.name} onLink={() => this.onMaterialLink()} />}
                     {!mesh.isAnInstance && (
                         <OptionsLineComponent
-                            label="Active material"
+                            label={getTrans('Activematerial')}
                             options={materialOptions}
                             target={mesh}
                             propertyName="material"
@@ -427,9 +427,9 @@ export class MeshPropertyGridComponent extends React.Component<
                             onPropertyChangedObservable={this.props.onPropertyChangedObservable}
                         />
                     )}
-                    {mesh.isAnInstance && <TextLineComponent label="Source" value={(mesh as any).sourceMesh.name} onLink={() => this.onSourceMeshLink()} />}
+                    {mesh.isAnInstance && <TextLineComponent label={getTrans('Source')} value={(mesh as any).sourceMesh.name} onLink={() => this.onSourceMeshLink()} />}
                     <ButtonLineComponent
-                        label="Dispose"
+                        label={getTrans('Dispose')}
                         onClick={() => {
                             mesh.dispose();
                             this.props.globalState.onSelectionChangedObservable.notifyObservers(null);
@@ -438,22 +438,22 @@ export class MeshPropertyGridComponent extends React.Component<
                 </LineContainerComponent>
                 <CommonPropertyGridComponent host={mesh} lockObject={this.props.lockObject} globalState={this.props.globalState} />
                 <VariantsPropertyGridComponent host={mesh} lockObject={this.props.lockObject} globalState={this.props.globalState} />
-                <LineContainerComponent title="TRANSFORMS" selection={this.props.globalState}>
-                    <Vector3LineComponent label="Position" target={mesh} propertyName="position" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    {!mesh.rotationQuaternion && <Vector3LineComponent label="Rotation" useEuler={this.props.globalState.onlyUseEulers} target={mesh} propertyName="rotation" step={0.01} onPropertyChangedObservable={this.props.onPropertyChangedObservable} />}
-                    {mesh.rotationQuaternion && <QuaternionLineComponent label="Rotation" useEuler={this.props.globalState.onlyUseEulers} target={mesh} propertyName="rotationQuaternion" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />}
-                    <Vector3LineComponent label="Scaling" target={mesh} propertyName="scaling" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                <LineContainerComponent title={getTrans('TRANSFORMS')} selection={this.props.globalState}>
+                    <Vector3LineComponent label={getTrans('Position')} target={mesh} propertyName="position" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    {!mesh.rotationQuaternion && <Vector3LineComponent label={getTrans('Rotation')} useEuler={this.props.globalState.onlyUseEulers} target={mesh} propertyName="rotation" step={0.01} onPropertyChangedObservable={this.props.onPropertyChangedObservable} />}
+                    {mesh.rotationQuaternion && <QuaternionLineComponent label={getTrans('Rotation')} useEuler={this.props.globalState.onlyUseEulers} target={mesh} propertyName="rotationQuaternion" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />}
+                    <Vector3LineComponent label={getTrans('Scaling')} target={mesh} propertyName="scaling" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
                 </LineContainerComponent>
-                <LineContainerComponent title="DISPLAY" closed={true} selection={this.props.globalState}>
-                    {!mesh.isAnInstance && <SliderLineComponent label="Visibility" target={mesh} propertyName="visibility" minimum={0} maximum={1} step={0.01} onPropertyChangedObservable={this.props.onPropertyChangedObservable} />}
-                    <FloatLineComponent lockObject={this.props.lockObject} label="Alpha index" target={mesh} propertyName="alphaIndex" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <CheckBoxLineComponent label="Receive shadows" target={mesh} propertyName="receiveShadows" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    {mesh.isVerticesDataPresent(VertexBuffer.ColorKind) && <CheckBoxLineComponent label="Use vertex colors" target={mesh} propertyName="useVertexColors" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />}
-                    {mesh.isVerticesDataPresent(VertexBuffer.ColorKind) && <CheckBoxLineComponent label="Has vertex alpha" target={mesh} propertyName="hasVertexAlpha" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />}
-                    {scene.fogMode !== Scene.FOGMODE_NONE && <CheckBoxLineComponent label="Apply fog" target={mesh} propertyName="applyFog" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />}
-                    {!mesh.parent && <CheckBoxLineComponent label="Infinite distance" target={mesh} propertyName="infiniteDistance" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />}
+                <LineContainerComponent title={getTrans('DISPLAY')} closed={true} selection={this.props.globalState}>
+                    {!mesh.isAnInstance && <SliderLineComponent label={getTrans('Visibility')} target={mesh} propertyName="visibility" minimum={0} maximum={1} step={0.01} onPropertyChangedObservable={this.props.onPropertyChangedObservable} />}
+                    <FloatLineComponent lockObject={this.props.lockObject} label={getTrans('Alphaindex')} target={mesh} propertyName="alphaIndex" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <CheckBoxLineComponent label={getTrans('Receiveshadows')} target={mesh} propertyName="receiveShadows" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    {mesh.isVerticesDataPresent(VertexBuffer.ColorKind) && <CheckBoxLineComponent label={getTrans('Usevertexcolors')} target={mesh} propertyName="useVertexColors" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />}
+                    {mesh.isVerticesDataPresent(VertexBuffer.ColorKind) && <CheckBoxLineComponent label={getTrans('Hasvertexalpha')} target={mesh} propertyName="hasVertexAlpha" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />}
+                    {scene.fogMode !== Scene.FOGMODE_NONE && <CheckBoxLineComponent label={getTrans('Applyfog')} target={mesh} propertyName="applyFog" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />}
+                    {!mesh.parent && <CheckBoxLineComponent label={getTrans('Infinitedistance')} target={mesh} propertyName="infiniteDistance" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />}
                     <SliderLineComponent
-                        label="Rendering group ID"
+                        label={getTrans('RenderinggroupID')}
                         decimalCount={0}
                         target={mesh}
                         propertyName="renderingGroupId"
@@ -462,46 +462,46 @@ export class MeshPropertyGridComponent extends React.Component<
                         step={1}
                         onPropertyChangedObservable={this.props.onPropertyChangedObservable}
                     />
-                    <HexLineComponent isInteger lockObject={this.props.lockObject} label="Layer mask" target={mesh} propertyName="layerMask" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <HexLineComponent isInteger lockObject={this.props.lockObject} label={getTrans('Layermask')} target={mesh} propertyName="layerMask" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
                 </LineContainerComponent>
                 {mesh.morphTargetManager != null && (
-                    <LineContainerComponent title="MORPH TARGETS" closed={true} selection={this.props.globalState}>
+                    <LineContainerComponent title={getTrans('MORPHTARGETS')} closed={true} selection={this.props.globalState}>
                         {morphTargets.map((mt, i) => {
                             return <SliderLineComponent key={i} label={mt.name} target={mt} propertyName="influence" minimum={0} maximum={1} step={0.01} onPropertyChangedObservable={this.props.onPropertyChangedObservable} />;
                         })}
                     </LineContainerComponent>
                 )}
                 <AnimationGridComponent globalState={this.props.globalState} animatable={mesh} scene={mesh.getScene()} lockObject={this.props.lockObject} />
-                <LineContainerComponent title="ADVANCED" closed={true} selection={this.props.globalState}>
-                    {mesh.useBones && <CheckBoxLineComponent label="Compute bones using shaders" target={mesh} propertyName="computeBonesUsingShaders" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />}
-                    <CheckBoxLineComponent label="Collisions" target={mesh} propertyName="checkCollisions" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <TextLineComponent label="Geometry ID" value={mesh.geometry?.uniqueId.toString()} />
-                    <TextLineComponent label="Has normals" value={mesh.isVerticesDataPresent(VertexBuffer.NormalKind) ? "Yes" : "No"} />
-                    <TextLineComponent label="Has vertex colors" value={mesh.isVerticesDataPresent(VertexBuffer.ColorKind) ? "Yes" : "No"} />
-                    <TextLineComponent label="Has UV set 0" value={mesh.isVerticesDataPresent(VertexBuffer.UVKind) ? "Yes" : "No"} />
-                    <TextLineComponent label="Has UV set 1" value={mesh.isVerticesDataPresent(VertexBuffer.UV2Kind) ? "Yes" : "No"} />
-                    <TextLineComponent label="Has UV set 2" value={mesh.isVerticesDataPresent(VertexBuffer.UV3Kind) ? "Yes" : "No"} />
-                    <TextLineComponent label="Has UV set 3" value={mesh.isVerticesDataPresent(VertexBuffer.UV4Kind) ? "Yes" : "No"} />
-                    <TextLineComponent label="Has tangents" value={mesh.isVerticesDataPresent(VertexBuffer.TangentKind) ? "Yes" : "No"} />
-                    <TextLineComponent label="Has matrix weights" value={mesh.isVerticesDataPresent(VertexBuffer.MatricesWeightsKind) ? "Yes" : "No"} />
-                    <TextLineComponent label="Has matrix indices" value={mesh.isVerticesDataPresent(VertexBuffer.MatricesIndicesKind) ? "Yes" : "No"} />
+                <LineContainerComponent title={getTrans('ADVANCED')} closed={true} selection={this.props.globalState}>
+                    {mesh.useBones && <CheckBoxLineComponent label={getTrans('Computebonesusingshaders')} target={mesh} propertyName="computeBonesUsingShaders" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />}
+                    <CheckBoxLineComponent label={getTrans('Collisions')} target={mesh} propertyName="checkCollisions" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <TextLineComponent label={getTrans('GeometryID')} value={mesh.geometry?.uniqueId.toString()} />
+                    <TextLineComponent label={getTrans('Hasnormals')} value={mesh.isVerticesDataPresent(VertexBuffer.NormalKind) ? "Yes" : "No"} />
+                    <TextLineComponent label={getTrans('Hasvertexcolors')} value={mesh.isVerticesDataPresent(VertexBuffer.ColorKind) ? "Yes" : "No"} />
+                    <TextLineComponent label={getTrans('HasUVset0')} value={mesh.isVerticesDataPresent(VertexBuffer.UVKind) ? "Yes" : "No"} />
+                    <TextLineComponent label={getTrans('HasUVset1')} value={mesh.isVerticesDataPresent(VertexBuffer.UV2Kind) ? "Yes" : "No"} />
+                    <TextLineComponent label={getTrans('HasUVset2')} value={mesh.isVerticesDataPresent(VertexBuffer.UV3Kind) ? "Yes" : "No"} />
+                    <TextLineComponent label={getTrans('HasUVset3')} value={mesh.isVerticesDataPresent(VertexBuffer.UV4Kind) ? "Yes" : "No"} />
+                    <TextLineComponent label={getTrans('Hastangents')} value={mesh.isVerticesDataPresent(VertexBuffer.TangentKind) ? "Yes" : "No"} />
+                    <TextLineComponent label={getTrans('Hasmatrixweights')} value={mesh.isVerticesDataPresent(VertexBuffer.MatricesWeightsKind) ? "Yes" : "No"} />
+                    <TextLineComponent label={getTrans('Hasmatrixindices')} value={mesh.isVerticesDataPresent(VertexBuffer.MatricesIndicesKind) ? "Yes" : "No"} />
                 </LineContainerComponent>
                 {mesh.physicsImpostor != null && (
-                    <LineContainerComponent title="PHYSICS" closed={true} selection={this.props.globalState}>
-                        <FloatLineComponent lockObject={this.props.lockObject} label="Mass" target={mesh.physicsImpostor} propertyName="mass" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                        <FloatLineComponent lockObject={this.props.lockObject} label="Friction" target={mesh.physicsImpostor} propertyName="friction" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                        <FloatLineComponent lockObject={this.props.lockObject} label="Restitution" target={mesh.physicsImpostor} propertyName="restitution" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                        <TextLineComponent label="Type" value={this.convertPhysicsTypeToString()} />
+                    <LineContainerComponent title={getTrans('PHYSICS')} closed={true} selection={this.props.globalState}>
+                        <FloatLineComponent lockObject={this.props.lockObject} label={getTrans('Mass')} target={mesh.physicsImpostor} propertyName="mass" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                        <FloatLineComponent lockObject={this.props.lockObject} label={getTrans('Friction')} target={mesh.physicsImpostor} propertyName="friction" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                        <FloatLineComponent lockObject={this.props.lockObject} label={getTrans('Restitution')} target={mesh.physicsImpostor} propertyName="restitution" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                        <TextLineComponent label={getTrans('Type')} value={this.convertPhysicsTypeToString()} />
                     </LineContainerComponent>
                 )}
-                <LineContainerComponent title="OCCLUSIONS" closed={true} selection={this.props.globalState}>
-                    <OptionsLineComponent label="Type" options={occlusionTypeOptions} target={mesh} propertyName="occlusionType" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <SliderLineComponent label="Retry count" minimum={-1} maximum={10} decimalCount={0} step={1} target={mesh} propertyName="occlusionRetryCount" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <OptionsLineComponent label="Algorithm" options={algorithmOptions} target={mesh} propertyName="occlusionQueryAlgorithmType" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                <LineContainerComponent title={getTrans('OCCLUSIONS')} closed={true} selection={this.props.globalState}>
+                    <OptionsLineComponent label={getTrans('Type')} options={occlusionTypeOptions} target={mesh} propertyName="occlusionType" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <SliderLineComponent label={getTrans('Retrycount')} minimum={-1} maximum={10} decimalCount={0} step={1} target={mesh} propertyName="occlusionRetryCount" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <OptionsLineComponent label={getTrans('Algorithm')} options={algorithmOptions} target={mesh} propertyName="occlusionQueryAlgorithmType" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
                 </LineContainerComponent>
-                <LineContainerComponent title="EDGE RENDERING" closed={true} selection={this.props.globalState}>
+                <LineContainerComponent title={getTrans('EDGERENDERING')} closed={true} selection={this.props.globalState}>
                     <CheckBoxLineComponent
-                        label="Enable"
+                        label={getTrans('Enabled')}
                         target={mesh}
                         isSelected={() => mesh.edgesRenderer != null}
                         onSelect={(value) => {
@@ -512,26 +512,26 @@ export class MeshPropertyGridComponent extends React.Component<
                             }
                         }}
                     />
-                    <SliderLineComponent label="Edge width" minimum={0} maximum={10} step={0.1} target={mesh} propertyName="edgesWidth" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <Color3LineComponent label="Edge color" target={mesh} propertyName="edgesColor" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <SliderLineComponent label={getTrans('Edgewidth')} minimum={0} maximum={10} step={0.1} target={mesh} propertyName="edgesWidth" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <Color3LineComponent label={getTrans('Edgecolor')} target={mesh} propertyName="edgesColor" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
                 </LineContainerComponent>
                 {!mesh.isAnInstance && (
-                    <LineContainerComponent title="OUTLINE & OVERLAY" closed={true} selection={this.props.globalState}>
-                        <CheckBoxLineComponent label="Render overlay" target={mesh} propertyName="renderOverlay" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                        <Color3LineComponent label="Overlay color" target={mesh} propertyName="overlayColor" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                        <CheckBoxLineComponent label="Render outline" target={mesh} propertyName="renderOutline" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                        <Color3LineComponent label="Outline color" target={mesh} propertyName="outlineColor" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <LineContainerComponent title={getTrans('OUTLINEOVERLAY')}closed={true} selection={this.props.globalState}>
+                        <CheckBoxLineComponent label={getTrans('Renderoverlay')} target={mesh} propertyName="renderOverlay" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                        <Color3LineComponent label={getTrans('Overlaycolor')} target={mesh} propertyName="overlayColor" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                        <CheckBoxLineComponent label={getTrans('Renderoutline')} target={mesh} propertyName="renderOutline" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                        <Color3LineComponent label={getTrans('Outlinecolor')} target={mesh} propertyName="outlineColor" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
                     </LineContainerComponent>
                 )}
-                <LineContainerComponent title="DEBUG" closed={true} selection={this.props.globalState}>
-                    {!mesh.isAnInstance && <CheckBoxLineComponent label="Display normals" isSelected={() => displayNormals} onSelect={() => this.displayNormals()} />}
-                    {!mesh.isAnInstance && <CheckBoxLineComponent label="Display vertex colors" isSelected={() => displayVertexColors} onSelect={() => this.displayVertexColors()} />}
-                    {mesh.isVerticesDataPresent(VertexBuffer.NormalKind) && <CheckBoxLineComponent label="Render vertex normals" isSelected={() => renderNormalVectors} onSelect={() => this.renderNormalVectors()} />}
-                    {!mesh.isAnInstance && <CheckBoxLineComponent label="Render wireframe over mesh" isSelected={() => renderWireframeOver} onSelect={() => this.renderWireframeOver()} />}
-                    {!mesh.isAnInstance && mesh.skeleton && <CheckBoxLineComponent label="Display BoneWeights" isSelected={() => displayBoneWeights} onSelect={() => this.displayBoneWeights()} />}
+                <LineContainerComponent title={getTrans('DEBUG')} closed={true} selection={this.props.globalState}>
+                    {!mesh.isAnInstance && <CheckBoxLineComponent label={getTrans('Displaynormals')} isSelected={() => displayNormals} onSelect={() => this.displayNormals()} />}
+                    {!mesh.isAnInstance && <CheckBoxLineComponent label={getTrans('Displayvertexcolors')} isSelected={() => displayVertexColors} onSelect={() => this.displayVertexColors()} />}
+                    {mesh.isVerticesDataPresent(VertexBuffer.NormalKind) && <CheckBoxLineComponent label={getTrans('Rendervertexnormals')} isSelected={() => renderNormalVectors} onSelect={() => this.renderNormalVectors()} />}
+                    {!mesh.isAnInstance && <CheckBoxLineComponent label={getTrans('Renderwireframeovermesh')} isSelected={() => renderWireframeOver} onSelect={() => this.renderWireframeOver()} />}
+                    {!mesh.isAnInstance && mesh.skeleton && <CheckBoxLineComponent label={getTrans('DisplayBoneWeights')} isSelected={() => displayBoneWeights} onSelect={() => this.displayBoneWeights()} />}
                     {!mesh.isAnInstance && this.state.displayBoneWeights && mesh.skeleton && (
                         <OptionsLineComponent
-                            label="Target Bone Name"
+                            label={getTrans('TargetBoneName')}
                             options={targetBoneOptions}
                             target={mesh.reservedDataStore}
                             propertyName="displayBoneIndex"
@@ -544,7 +544,7 @@ export class MeshPropertyGridComponent extends React.Component<
                     )}
                     {!mesh.isAnInstance && this.state.displayBoneWeights && mesh.skeleton && (
                         <SliderLineComponent
-                            label="Target Bone"
+                            label={getTrans('TargetBone')}
                             decimalCount={0}
                             target={mesh.reservedDataStore}
                             propertyName="displayBoneIndex"
@@ -557,7 +557,7 @@ export class MeshPropertyGridComponent extends React.Component<
                             }}
                         />
                     )}
-                    {!mesh.isAnInstance && mesh.skeleton && <CheckBoxLineComponent label="Display SkeletonMap" isSelected={() => displaySkeletonMap} onSelect={() => this.displaySkeletonMap()} />}
+                    {!mesh.isAnInstance && mesh.skeleton && <CheckBoxLineComponent label={getTrans('DisplaySkeletonMap')} isSelected={() => displaySkeletonMap} onSelect={() => this.displaySkeletonMap()} />}
                 </LineContainerComponent>
             </div>
         );

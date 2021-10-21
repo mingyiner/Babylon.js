@@ -706,6 +706,10 @@ declare module "babylonjs-inspector/components/actionTabs/tabs/performanceViewer
     }
     export const PerformanceViewerComponent: React.FC<IPerformanceViewerComponentProps>;
 }
+declare module "babylonjs-inspector/translationLng" {
+    export const getLng: (t: string) => void;
+    export const getTrans: (key: string) => any;
+}
 declare module "babylonjs-inspector/components/actionTabs/tabs/statisticsTabComponent" {
     import { PaneComponent, IPaneComponentProps } from "babylonjs-inspector/components/actionTabs/paneComponent";
     export class StatisticsTabComponent extends PaneComponent {
@@ -2501,26 +2505,26 @@ declare module "babylonjs-inspector/components/actionTabs/tabs/propertyGrids/mat
         }): void;
         forceRefresh(): void;
         findTextureFormat(format: number): {
-            label: string;
+            label: any;
             normalizable: number;
             value: number;
             hideType?: undefined;
             compressed?: undefined;
         } | {
-            label: string;
+            label: any;
             normalizable: number;
             hideType: boolean;
             value: number;
             compressed?: undefined;
         } | {
-            label: string;
+            label: any;
             normalizable: number;
             compressed: boolean;
             value: number;
             hideType?: undefined;
         } | null;
         findTextureType(type: number): {
-            label: string;
+            label: any;
             normalizable: number;
             value: number;
         } | null;
@@ -5551,6 +5555,10 @@ declare module INSPECTOR {
     export const PerformanceViewerComponent: React.FC<IPerformanceViewerComponentProps>;
 }
 declare module INSPECTOR {
+    export const getLng: (t: string) => void;
+    export const getTrans: (key: string) => any;
+}
+declare module INSPECTOR {
     export class StatisticsTabComponent extends PaneComponent {
         private _sceneInstrumentation;
         private _engineInstrumentation;
@@ -7132,26 +7140,26 @@ declare module INSPECTOR {
         }): void;
         forceRefresh(): void;
         findTextureFormat(format: number): {
-            label: string;
+            label: any;
             normalizable: number;
             value: number;
             hideType?: undefined;
             compressed?: undefined;
         } | {
-            label: string;
+            label: any;
             normalizable: number;
             hideType: boolean;
             value: number;
             compressed?: undefined;
         } | {
-            label: string;
+            label: any;
             normalizable: number;
             compressed: boolean;
             value: number;
             hideType?: undefined;
         } | null;
         findTextureType(type: number): {
-            label: string;
+            label: any;
             normalizable: number;
             value: number;
         } | null;

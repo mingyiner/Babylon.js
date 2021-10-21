@@ -13,7 +13,7 @@ import { CascadedShadowGenerator } from 'babylonjs/Lights/Shadows/cascadedShadow
 import { SliderLineComponent } from '../../../../../sharedUiComponents/lines/sliderLineComponent';
 import { ButtonLineComponent } from '../../../../../sharedUiComponents/lines/buttonLineComponent';
 import { DirectionalLight } from 'babylonjs/Lights/directionalLight';
-
+import {getTrans} from '../../../../../translationLng';
 interface ICommonShadowLightPropertyGridComponentProps {
     globalState: GlobalState;
     light: IShadowLight;
@@ -84,27 +84,27 @@ export class CommonShadowLightPropertyGridComponent extends React.Component<ICom
 
         if (generator instanceof CascadedShadowGenerator) {
             blurModeOptions = [
-                { label: "None", value: ShadowGenerator.FILTER_NONE },
-                { label: "PCF", value: ShadowGenerator.FILTER_PCF },
-                { label: "PCSS", value: ShadowGenerator.FILTER_PCSS },
+                { label: getTrans('None'), value: ShadowGenerator.FILTER_NONE },
+                { label: getTrans('PCF'), value: ShadowGenerator.FILTER_PCF },
+                { label: getTrans('PCSS'), value: ShadowGenerator.FILTER_PCSS },
             ];
         } else {
             blurModeOptions = [
-                { label: "None", value: ShadowGenerator.FILTER_NONE },
-                { label: "PCF", value: ShadowGenerator.FILTER_PCF },
-                { label: "PCSS", value: ShadowGenerator.FILTER_PCSS },
-                { label: "Poisson", value: ShadowGenerator.FILTER_POISSONSAMPLING },
-                { label: "Exponential", value: ShadowGenerator.FILTER_EXPONENTIALSHADOWMAP },
-                { label: "Blurred exponential", value: ShadowGenerator.FILTER_BLUREXPONENTIALSHADOWMAP },
-                { label: "Close exponential", value: ShadowGenerator.FILTER_CLOSEEXPONENTIALSHADOWMAP },
-                { label: "Blurred close exponential", value: ShadowGenerator.FILTER_BLURCLOSEEXPONENTIALSHADOWMAP },
+                { label: getTrans('None'), value: ShadowGenerator.FILTER_NONE },
+                { label: getTrans('PCF'), value: ShadowGenerator.FILTER_PCF },
+                { label: getTrans('PCSS'), value: ShadowGenerator.FILTER_PCSS },
+                { label: getTrans('Poisson'), value: ShadowGenerator.FILTER_POISSONSAMPLING },
+                { label: getTrans('Exponential'), value: ShadowGenerator.FILTER_EXPONENTIALSHADOWMAP },
+                { label: getTrans('Blurredexponential'), value: ShadowGenerator.FILTER_BLUREXPONENTIALSHADOWMAP },
+                { label: getTrans('Closeexponential'), value: ShadowGenerator.FILTER_CLOSEEXPONENTIALSHADOWMAP },
+                { label: getTrans('Blurredcloseexponential'), value: ShadowGenerator.FILTER_BLURCLOSEEXPONENTIALSHADOWMAP },
             ];
         }
 
         var filteringQualityOptions = [
-            { label: "Low", value: ShadowGenerator.QUALITY_LOW },
-            { label: "Medium", value: ShadowGenerator.QUALITY_MEDIUM },
-            { label: "High", value: ShadowGenerator.QUALITY_HIGH },
+            { label: getTrans('Low'), value: ShadowGenerator.QUALITY_LOW },
+            { label: getTrans('Medium'), value: ShadowGenerator.QUALITY_MEDIUM },
+            { label: getTrans('High'), value: ShadowGenerator.QUALITY_HIGH },
         ];
 
         var numCascadesOptions = [
@@ -119,47 +119,47 @@ export class CommonShadowLightPropertyGridComponent extends React.Component<ICom
 
         return (
             <div>
-                <LineContainerComponent title="SHADOWS" selection={this.props.globalState}>
-                    <CheckBoxLineComponent label="Shadows enabled" target={light} propertyName="shadowEnabled" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                <LineContainerComponent title={getTrans('SHADOWS')} selection={this.props.globalState}>
+                    <CheckBoxLineComponent label={getTrans('Shadowsenabled')}target={light} propertyName="shadowEnabled" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
                     { !csmGenerator && <>
-                        <FloatLineComponent lockObject={this.props.lockObject} label="Shadows near plane" target={light} propertyName="shadowMinZ" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                        <FloatLineComponent lockObject={this.props.lockObject} label="Shadows far plane" target={light} propertyName="shadowMaxZ" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                        <FloatLineComponent lockObject={this.props.lockObject} label={getTrans('Shadowsnearplane')} target={light} propertyName="shadowMinZ" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                        <FloatLineComponent lockObject={this.props.lockObject} label={getTrans('Shadowsfarplane')} target={light} propertyName="shadowMaxZ" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
                     </> }
                 </LineContainerComponent>
                 {
                     generator == null &&
-                    <LineContainerComponent title="SHADOW GENERATOR" selection={this.props.globalState}>
-                        <OptionsLineComponent label="Type" options={typeGeneratorOptions} target={internals} propertyName="generatorType" />
-                        <OptionsLineComponent label="Map size" options={mapSizeOptions} target={internals} propertyName="mapSize" />
-                        <ButtonLineComponent label="Create generator" onClick={() => this.createShadowGenerator()} />
+                    <LineContainerComponent title={getTrans('SHADOWGENERATOR')} selection={this.props.globalState}>
+                        <OptionsLineComponent label={getTrans('Type')} options={typeGeneratorOptions} target={internals} propertyName="generatorType" />
+                        <OptionsLineComponent label={getTrans('Mapsize')} options={mapSizeOptions} target={internals} propertyName="mapSize" />
+                        <ButtonLineComponent label={getTrans('Creategenerator')} onClick={() => this.createShadowGenerator()} />
                     </LineContainerComponent>
                 }
                 {
                     generator !== null &&
-                    <LineContainerComponent title="SHADOW GENERATOR" selection={this.props.globalState}>
-                        <ButtonLineComponent label="Dispose generator" onClick={() => this.disposeShadowGenerator()} />
+                    <LineContainerComponent title={getTrans('SHADOWGENERATOR')} selection={this.props.globalState}>
+                        <ButtonLineComponent label={getTrans('Disposegenerator')} onClick={() => this.disposeShadowGenerator()} />
                         { csmGenerator && <>
-                            <OptionsLineComponent label="Num cascades" options={numCascadesOptions} target={generator} propertyName="numCascades" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                            <CheckBoxLineComponent label="Debug mode" target={generator} propertyName="debug" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                            <CheckBoxLineComponent label="Stabilize cascades" target={generator} propertyName="stabilizeCascades" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                            <SliderLineComponent label="Lambda" minimum={0} maximum={1.0} step={0.01} target={generator} propertyName="lambda" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                            <SliderLineComponent label="Cascade blend" minimum={0} maximum={1.0} step={0.01} target={generator} propertyName="cascadeBlendPercentage" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                            <CheckBoxLineComponent label="Depth clamp" target={generator} propertyName="depthClamp" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                            <CheckBoxLineComponent label="Auto-Calc depth bounds" target={generator} propertyName="autoCalcDepthBounds" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                            <SliderLineComponent label="Shadow MaxZ" minimum={near} maximum={far} step={0.5} target={generator} propertyName="shadowMaxZ" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                            <OptionsLineComponent label={getTrans('Numcascades')} options={numCascadesOptions} target={generator} propertyName="numCascades" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                            <CheckBoxLineComponent label={getTrans('Debugmode')} target={generator} propertyName="debug" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                            <CheckBoxLineComponent label={getTrans('Stabilizecascades')} target={generator} propertyName="stabilizeCascades" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                            <SliderLineComponent label={getTrans('Lambda')} minimum={0} maximum={1.0} step={0.01} target={generator} propertyName="lambda" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                            <SliderLineComponent label={getTrans('Cascadeblend')} minimum={0} maximum={1.0} step={0.01} target={generator} propertyName="cascadeBlendPercentage" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                            <CheckBoxLineComponent label={getTrans('Depthclamp')} target={generator} propertyName="depthClamp" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                            <CheckBoxLineComponent label={getTrans('AutoCalcdepthbounds')} target={generator} propertyName="autoCalcDepthBounds" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                            <SliderLineComponent label={getTrans('ShadowMaxZ')} minimum={near} maximum={far} step={0.5} target={generator} propertyName="shadowMaxZ" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
                         </> }
-                        <FloatLineComponent lockObject={this.props.lockObject} digits={4} step="0.0001" label="Bias" target={generator} propertyName="bias" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                        <FloatLineComponent lockObject={this.props.lockObject} label="Normal bias" target={generator} propertyName="normalBias" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                        <SliderLineComponent label="Darkness" target={generator} minimum={0} maximum={1} step={0.01} propertyName="darkness" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                        <CheckBoxLineComponent label="Allow transparent shadows" target={generator} propertyName="transparencyShadow" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                        <OptionsLineComponent label="Filter" options={blurModeOptions}
+                        <FloatLineComponent lockObject={this.props.lockObject} digits={4} step="0.0001" label={getTrans('Bias')} target={generator} propertyName="bias" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                        <FloatLineComponent lockObject={this.props.lockObject} label={getTrans('Normalbias')} target={generator} propertyName="normalBias" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                        <SliderLineComponent label={getTrans('Darkness')} target={generator} minimum={0} maximum={1} step={0.01} propertyName="darkness" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                        <CheckBoxLineComponent label={getTrans('Allowtransparentshadows')} target={generator} propertyName="transparencyShadow" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                        <OptionsLineComponent label={getTrans('Filter')} options={blurModeOptions}
                             onSelect={() => {
                                 this.forceUpdate();
                             }}
                             target={generator} propertyName="filter" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
                         {
                             (filter === ShadowGenerator.FILTER_PCF || filter === ShadowGenerator.FILTER_PCSS) &&
-                            <OptionsLineComponent label="Filtering quality" options={filteringQualityOptions}
+                            <OptionsLineComponent label={getTrans('Filteringquality')} options={filteringQualityOptions}
                                 onSelect={() => {
                                     this.forceUpdate();
                                 }}
@@ -167,34 +167,34 @@ export class CommonShadowLightPropertyGridComponent extends React.Component<ICom
                         }
                         {
                             (filter === ShadowGenerator.FILTER_PCSS) &&
-                            <SliderLineComponent label="Penumbra ratio" minimum={0} maximum={0.5} step={0.001} target={generator} propertyName="contactHardeningLightSizeUVRatio" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                            <SliderLineComponent label={getTrans('Penumbraratio')} minimum={0} maximum={0.5} step={0.001} target={generator} propertyName="contactHardeningLightSizeUVRatio" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
                         }
                         {
                             !csmGenerator && (filter === ShadowGenerator.FILTER_BLUREXPONENTIALSHADOWMAP || filter === ShadowGenerator.FILTER_BLURCLOSEEXPONENTIALSHADOWMAP) &&
-                            <CheckBoxLineComponent label="Use kernel blur" target={generator} propertyName="useKernelBlur"
+                            <CheckBoxLineComponent label={getTrans('Usekernelblur')} target={generator} propertyName="useKernelBlur"
                                 onValueChanged={() => this.forceUpdate()}
                                 onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
                         }
                         {
                             (generator instanceof ShadowGenerator) && (filter === ShadowGenerator.FILTER_BLUREXPONENTIALSHADOWMAP || filter === ShadowGenerator.FILTER_BLURCLOSEEXPONENTIALSHADOWMAP) &&
                             !generator.useKernelBlur &&
-                            <SliderLineComponent label="Blur box offset" target={generator} propertyName="blurBoxOffset" minimum={1} maximum={64} step={1} onPropertyChangedObservable={this.props.onPropertyChangedObservable} />}
+                            <SliderLineComponent label={getTrans('Blurboxoffset')} target={generator} propertyName="blurBoxOffset" minimum={1} maximum={64} step={1} onPropertyChangedObservable={this.props.onPropertyChangedObservable} />}
                         {
                             (generator instanceof ShadowGenerator) && (filter === ShadowGenerator.FILTER_BLUREXPONENTIALSHADOWMAP || filter === ShadowGenerator.FILTER_BLURCLOSEEXPONENTIALSHADOWMAP) &&
                             generator.useKernelBlur &&
-                            <SliderLineComponent label="Blur kernel" target={generator} propertyName="blurKernel" minimum={1} maximum={64} step={1} onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                            <SliderLineComponent label={getTrans('Blurkernel')} target={generator} propertyName="blurKernel" minimum={1} maximum={64} step={1} onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
                         }
                         {
                             (generator instanceof ShadowGenerator) && (filter === ShadowGenerator.FILTER_BLUREXPONENTIALSHADOWMAP || filter === ShadowGenerator.FILTER_EXPONENTIALSHADOWMAP) &&
-                            <FloatLineComponent lockObject={this.props.lockObject} label="Depth scale" target={generator} propertyName="depthScale" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                            <FloatLineComponent lockObject={this.props.lockObject} label={getTrans('Depthscale')} target={generator} propertyName="depthScale" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
                         }
                         {
                             (generator instanceof ShadowGenerator) && (filter === ShadowGenerator.FILTER_BLUREXPONENTIALSHADOWMAP || filter === ShadowGenerator.FILTER_EXPONENTIALSHADOWMAP) &&
-                            <SliderLineComponent label="Blur scale" target={generator} propertyName="blurScale" minimum={1} maximum={4} step={1} onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                            <SliderLineComponent label={getTrans('Blurscale')} target={generator} propertyName="blurScale" minimum={1} maximum={4} step={1} onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
                         }
                         {
                             csmGenerator && (filter === ShadowGenerator.FILTER_PCSS) &&
-                            <SliderLineComponent label="Penumbra darkness" minimum={0} maximum={1.0} step={0.01} target={generator} propertyName="penumbraDarkness" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                            <SliderLineComponent label={getTrans('Penumbradarkness')} minimum={0} maximum={1.0} step={0.01} target={generator} propertyName="penumbraDarkness" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
                         }
                     </LineContainerComponent>
                 }

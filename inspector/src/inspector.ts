@@ -13,7 +13,7 @@ import { SceneExplorerComponent } from "./components/sceneExplorer/sceneExplorer
 import { EmbedHostComponent } from "./components/embedHost/embedHostComponent";
 import { PropertyChangedEvent } from "./components/propertyChangedEvent";
 import { GlobalState } from "./components/globalState";
-
+import {getLng} from './translationLng';
 interface IInternalInspectorOptions extends IInspectorOptions {
     popup: boolean;
     original: boolean;
@@ -93,9 +93,14 @@ export class Inspector {
                 enablePopup: options.enablePopup,
                 enableClose: options.enableClose,
                 explorerExtensibility: options.explorerExtensibility,
+                useLng:options.useLng,
             };
         }
-
+        if(options.useLng){
+            getLng(options.useLng)
+        }else{
+            getLng('en');
+        }
         // Prepare the scene explorer host
         if (parentControlExplorer) {
             this._SceneExplorerHost = parentControlExplorer.ownerDocument!.createElement("div");
@@ -255,7 +260,9 @@ export class Inspector {
                     options.showExplorer = true;
                     options.showInspector = true;
                     options.embedHostWidth = options.popup ? "100%" : "auto";
+                    //options.useLng
                     Inspector.Show(scene, options);
+                    console.log("显示inject")
                 },
                 onClose: () => {
                     ReactDOM.unmountComponentAtNode(this._EmbedHost!);
@@ -268,10 +275,12 @@ export class Inspector {
                     if (options.popup) {
                         this._EmbedHostWindow.close();
                     }
+                    console.log("关闭inject")
                 },
                 initialTab: options.initialTab,
             });
             ReactDOM.render(embedHostElement, this._EmbedHost);
+            console.log("渲染inspector")
         }
     }
     public static _CreatePopup(title: string, windowVariableName: string, width = 300, height = 800, lateBinding?: boolean) {
@@ -346,6 +355,7 @@ export class Inspector {
     }
 
     public static Show(scene: Scene, userOptions: Partial<IInspectorOptions>) {
+        
         const options: IInternalInspectorOptions = {
             original: true,
             popup: false,
@@ -356,6 +366,7 @@ export class Inspector {
             enableClose: true,
             handleResize: true,
             enablePopup: true,
+            useLng:'en',
             ...userOptions,
         };
 
@@ -379,7 +390,11 @@ export class Inspector {
         this._Scene = scene;
 
         var rootElement = scene ? scene.getEngine().getInputElement() : EngineStore.LastCreatedEngine!.getInputElement();
-
+        if(options.useLng){
+            getLng(options.useLng);
+        }else{
+            getLng('en');
+        }
         if (options.embedMode && options.showExplorer && options.showInspector) {
             if (options.popup) {
                 this._CreateEmbedHost(scene, options, this._CreatePopup("INSPECTOR", "_EmbedHostWindow"), Inspector.OnSelectionChangeObservable);

@@ -20,7 +20,7 @@ import { NodeMaterialBlockConnectionPointTypes } from 'babylonjs/Materials/Node/
 import { InputBlock } from 'babylonjs/Materials/Node/Blocks/Input/inputBlock';
 import { GradientPropertyTabComponent } from '../../gradientNodePropertyComponent';
 import { Color4LineComponent } from "../../../../../sharedUiComponents/lines/color4LineComponent";
-
+import { getTrans } from "../../../../../translationLng";
 interface INodeMaterialPropertyGridComponentProps {
     globalState: GlobalState;
     material: NodeMaterial;
@@ -52,7 +52,7 @@ export class NodeMaterialPropertyGridComponent extends React.Component<INodeMate
         }
 
         return (
-            <LineContainerComponent title="TEXTURES" selection={this.props.globalState}>
+            <LineContainerComponent title={getTrans('Textures')} selection={this.props.globalState}>
                 {
                     textureBlocks.map((textureBlock, i) => {
                         return (
@@ -193,9 +193,9 @@ export class NodeMaterialPropertyGridComponent extends React.Component<INodeMate
         return (
             <div className="pane">
                 <CommonMaterialPropertyGridComponent globalState={this.props.globalState} lockObject={this.props.lockObject} material={material} onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                <LineContainerComponent title="CONFIGURATION" selection={this.props.globalState}>
-                <CheckBoxLineComponent label="Ignore alpha" target={material} propertyName="ignoreAlpha" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                <ButtonLineComponent label="Node Material Editor" onClick={() => this.edit()} />
+                <LineContainerComponent title={getTrans('CONFIGURATION')} selection={this.props.globalState}>
+                <CheckBoxLineComponent label={getTrans('Ignorealpha')} target={material} propertyName="ignoreAlpha" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                <ButtonLineComponent label={getTrans('NodeMaterialEditor')} onClick={() => this.edit()} />
                 </LineContainerComponent>
                 {
                     this.renderInputValues()

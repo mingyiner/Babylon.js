@@ -10,7 +10,7 @@ import { GlobalState } from '../../../../globalState';
 import { Bone } from 'babylonjs/Bones/bone';
 import { Vector3LineComponent } from '../../../../../sharedUiComponents/lines/vector3LineComponent';
 import { QuaternionLineComponent } from '../../../lines/quaternionLineComponent';
-
+import {getTrans} from '../../../../../translationLng';
 interface IBonePropertyGridComponentProps {
     globalState: GlobalState;
     bone: Bone,
@@ -37,30 +37,30 @@ export class BonePropertyGridComponent extends React.Component<IBonePropertyGrid
 
         return (
             <div className="pane">
-                <LineContainerComponent title="GENERAL" selection={this.props.globalState}>
-                    <TextLineComponent label="Name" value={bone.name} />
-                    <TextLineComponent label="Index" value={bone.getIndex().toString()} />
-                    <TextLineComponent label="Unique ID" value={bone.uniqueId.toString()} />
+                <LineContainerComponent title={getTrans('GENERAL')} selection={this.props.globalState}>
+                    <TextLineComponent label={getTrans('Name')} value={bone.name} />
+                    <TextLineComponent label={getTrans('Index')} value={bone.getIndex().toString()} />
+                    <TextLineComponent label={getTrans('UniqueID')} value={bone.uniqueId.toString()} />
                     {
                         bone.getParent() &&
-                        <TextLineComponent label="Parent" value={bone.getParent()!.name} onLink={() => this.props.globalState.onSelectionChangedObservable.notifyObservers(bone.getParent())}/>
+                        <TextLineComponent label={getTrans('Parent')}value={bone.getParent()!.name} onLink={() => this.props.globalState.onSelectionChangedObservable.notifyObservers(bone.getParent())}/>
                     }                    
                     {
                         bone.getTransformNode() &&
-                        <TextLineComponent label="Linked node" value={bone.getTransformNode()!.name} onLink={() => this.onTransformNodeLink()}/>
+                        <TextLineComponent label={getTrans('Linkednode')} value={bone.getTransformNode()!.name} onLink={() => this.onTransformNodeLink()}/>
                     }
                 </LineContainerComponent>
-                <LineContainerComponent title="TRANSFORMATIONS" selection={this.props.globalState}>
-                    <Vector3LineComponent label="Position" target={bone} propertyName="position" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                <LineContainerComponent title={getTrans('TRANSFORMATIONS')} selection={this.props.globalState}>
+                    <Vector3LineComponent label={getTrans('Position')} target={bone} propertyName="position" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
                     {
                         !bone.rotationQuaternion &&
-                        <Vector3LineComponent label="Rotation" useEuler={this.props.globalState.onlyUseEulers} target={bone} propertyName="rotation" step={0.01} onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                        <Vector3LineComponent label={getTrans('Rotation')} useEuler={this.props.globalState.onlyUseEulers} target={bone} propertyName="rotation" step={0.01} onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
                     }
                     {
                         bone.rotationQuaternion &&
-                        <QuaternionLineComponent label="Rotation" useEuler={this.props.globalState.onlyUseEulers} target={bone} propertyName="rotationQuaternion" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                        <QuaternionLineComponent label={getTrans('Rotation')} useEuler={this.props.globalState.onlyUseEulers} target={bone} propertyName="rotationQuaternion" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
                     }
-                    <Vector3LineComponent label="Scaling" target={bone} propertyName="scaling" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <Vector3LineComponent label={getTrans('Scaling')} target={bone} propertyName="scaling" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
                 </LineContainerComponent>                
             </div>
         );

@@ -20,7 +20,7 @@ import { TextLineComponent } from "../../../../../sharedUiComponents/lines/textL
 import { IAnimatable } from "babylonjs/Animations/animatable.interface";
 import { AnimationCurveEditorComponent } from "./curveEditor/animationCurveEditorComponent";
 import { Context } from "./curveEditor/context";
-
+import {getTrans} from '../../../../../translationLng';
 interface IAnimationGridComponentProps {
     globalState: GlobalState;
     animatable: IAnimatable;
@@ -165,7 +165,7 @@ export class AnimationGridComponent extends React.Component<IAnimationGridCompon
         return (
             <div>
                 {this._ranges.length > 0 && (
-                    <LineContainerComponent title="ANIMATION RANGES" selection={this.props.globalState}>
+                    <LineContainerComponent title={getTrans('ANIMATIONRANGES')} selection={this.props.globalState}>
                         {this._ranges.map((range, i) => {
                             return (
                                 <ButtonLineComponent
@@ -182,8 +182,8 @@ export class AnimationGridComponent extends React.Component<IAnimationGridCompon
                 )}
                 {animations && (
                     <>
-                        <LineContainerComponent title="ANIMATIONS" selection={this.props.globalState}>
-                            <TextLineComponent label="Count" value={animations.length.toString()} />                            
+                        <LineContainerComponent title={getTrans('ANIMATIONS')} selection={this.props.globalState}>
+                            <TextLineComponent label={getTrans('Count')} value={animations.length.toString()} />                            
                             {
                             animations.map((anim, i) => {
                                 return (
@@ -198,7 +198,7 @@ export class AnimationGridComponent extends React.Component<IAnimationGridCompon
                         </LineContainerComponent>
                         {animations.length > 0 && (
                             <LineContainerComponent
-                                title="ANIMATION GENERAL CONTROL"
+                                title={getTrans('ANIMATIONGENERALCONTROL')}
                                 selection={this.props.globalState}
                             >
                                 <FloatLineComponent
@@ -218,7 +218,7 @@ export class AnimationGridComponent extends React.Component<IAnimationGridCompon
                                     onChange={() => this.onChangeFromOrTo()}
                                 />
                                 <CheckBoxLineComponent
-                                    label="Loop"
+                                    label={getTrans('Loop')}
                                     onSelect={(value) => {
                                         this._animationControl.loop = value;
 
@@ -231,7 +231,7 @@ export class AnimationGridComponent extends React.Component<IAnimationGridCompon
                                 {this._isPlaying && (
                                     <SliderLineComponent
                                         ref={this.timelineRef}
-                                        label="Current frame"
+                                        label={getTrans('Currentframe')}
                                         minimum={this._animationControl.from}
                                         maximum={this._animationControl.to}
                                         step={(this._animationControl.to - this._animationControl.from) / 1000.0}
@@ -240,13 +240,13 @@ export class AnimationGridComponent extends React.Component<IAnimationGridCompon
                                     />
                                 )}
                                 <ButtonLineComponent
-                                    label={this._isPlaying ? "Stop" : "Play"}
+                                    label={this._isPlaying ? getTrans('Stop') : getTrans('Play')}
                                     onClick={() => this.playOrPause()}
                                 />
                                 {(this._ranges.length > 0 || (this._animations && this._animations.length > 0)) && (
                                     <>
                                         <CheckBoxLineComponent
-                                            label="Enable override"
+                                            label={getTrans('Enableoverride')}
                                             onSelect={(value) => {
                                                 if (value) {
                                                     animatableAsAny.animationPropertiesOverride = new AnimationPropertiesOverride();
@@ -262,13 +262,13 @@ export class AnimationGridComponent extends React.Component<IAnimationGridCompon
                                         {animatableAsAny.animationPropertiesOverride != null && (
                                             <div>
                                                 <CheckBoxLineComponent
-                                                    label="Enable blending"
+                                                    label={getTrans('Enableblending')}
                                                     target={animatableAsAny.animationPropertiesOverride}
                                                     propertyName="enableBlending"
                                                     onPropertyChangedObservable={this.props.onPropertyChangedObservable}
                                                 />
                                                 <SliderLineComponent
-                                                    label="Blending speed"
+                                                    label={getTrans('Blendingspeed')}
                                                     target={animatableAsAny.animationPropertiesOverride}
                                                     propertyName="blendingSpeed"
                                                     minimum={0}

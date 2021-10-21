@@ -7,7 +7,7 @@ import { LockObject } from '../../../../../sharedUiComponents/tabs/propertyGrids
 import { SphereParticleEmitter } from 'babylonjs/Particles/EmitterTypes/sphereParticleEmitter';
 import { FloatLineComponent } from '../../../../../sharedUiComponents/lines/floatLineComponent';
 import { SliderLineComponent } from '../../../../../sharedUiComponents/lines/sliderLineComponent';
-
+import {getTrans} from '../../../../../translationLng';
 interface ISphereEmitterGridComponentProps {
     globalState: GlobalState;
     emitter: SphereParticleEmitter,
@@ -25,10 +25,10 @@ export class SphereEmitterGridComponent extends React.Component<ISphereEmitterGr
         let emitter = this.props.emitter;
         return (
             <>                   
-                <FloatLineComponent lockObject={this.props.lockObject} label="Radius" target={emitter} propertyName="radius" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                <SliderLineComponent label="Radius range" target={emitter} propertyName="radiusRange" minimum={0} maximum={1} step={0.01} 
+                <FloatLineComponent lockObject={this.props.lockObject} label={getTrans('Radius_')} target={emitter} propertyName="radius" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                <SliderLineComponent label={getTrans('Radiusrange')} target={emitter} propertyName="radiusRange" minimum={0} maximum={1} step={0.01} 
                     onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                <SliderLineComponent label="Direction randomizer" target={emitter} propertyName="directionRandomizer" minimum={0} maximum={1} step={0.01} 
+                <SliderLineComponent label={getTrans('Directionrandomizer')} target={emitter} propertyName="directionRandomizer" minimum={0} maximum={1} step={0.01} 
                     onPropertyChangedObservable={this.props.onPropertyChangedObservable} />               
             </>
         );

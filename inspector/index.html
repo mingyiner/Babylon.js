@@ -7,6 +7,14 @@
     <meta name="viewport" content="width=device-width, user-scalable=no">
 
     <!--Babylon-->
+	    <script src="https://preview.babylonjs.com/ammo.js"></script>
+    <script src="https://preview.babylonjs.com/cannon.js"></script>
+    <script src="https://preview.babylonjs.com/Oimo.js"></script>
+    <script src="https://preview.babylonjs.com/babylon.js"></script>
+
+    <!-- <script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.min.js"></script> -->
+    <script src="https://preview.babylonjs.com/serializers/babylonjs.serializers.min.js"></script>
+    <script src="https://preview.babylonjs.com/materialsLibrary/babylonjs.materials.min.js"></script>
     <script src="../Tools/DevLoader/BabylonLoader.js"></script>
 
     <style>
@@ -22,7 +30,6 @@
             width: 100%;
             height: 100%;
             display: flex;
-            overflow: hidden;
         }
 
         canvas {
@@ -46,11 +53,12 @@
 
 
     <!--Starting the game-->
-    <script>
+	<script src="test/index.js"></script>
+   <!-- <script>
         BABYLONDEVTOOLS.Loader.require("test/index.js").load(function() {
             new Test('game-canvas');
         });
-    </script>
+    </script> -->
 </body>
 
 </html>

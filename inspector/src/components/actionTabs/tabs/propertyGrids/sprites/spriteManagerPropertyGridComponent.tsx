@@ -20,7 +20,7 @@ import { Tools } from 'babylonjs/Misc/tools';
 import { FileButtonLineComponent } from '../../../../../sharedUiComponents/lines/fileButtonLineComponent';
 import { Constants } from 'babylonjs/Engines/constants';
 import { OptionsLineComponent } from '../../../../../sharedUiComponents/lines/optionsLineComponent';
-
+import {getTrans} from '../../../../../translationLng';
 interface ISpriteManagerPropertyGridComponentProps {
     globalState: GlobalState;
     spriteManager: SpriteManager;
@@ -149,52 +149,52 @@ export class SpriteManagerPropertyGridComponent extends React.Component<ISpriteM
         const spriteManager = this.props.spriteManager;
 
         var alphaModeOptions = [
-            { label: "Combine", value: Constants.ALPHA_COMBINE },
-            { label: "One one", value: Constants.ALPHA_ONEONE },
-            { label: "Add", value: Constants.ALPHA_ADD },
-            { label: "Subtract", value: Constants.ALPHA_SUBTRACT },
-            { label: "Multiply", value: Constants.ALPHA_MULTIPLY },
-            { label: "Maximized", value: Constants.ALPHA_MAXIMIZED },
-            { label: "Pre-multiplied", value: Constants.ALPHA_PREMULTIPLIED },
+            { label: getTrans('Combine'), value: Constants.ALPHA_COMBINE },
+            { label: getTrans('Oneone'), value: Constants.ALPHA_ONEONE },
+            { label: getTrans('Add'), value: Constants.ALPHA_ADD },
+            { label: getTrans('Subtract'), value: Constants.ALPHA_SUBTRACT },
+            { label: getTrans('Multiply_'), value: Constants.ALPHA_MULTIPLY },
+            { label: getTrans('Maximized'), value: Constants.ALPHA_MAXIMIZED },
+            { label: getTrans('Premultiplied'), value: Constants.ALPHA_PREMULTIPLIED },
         ];
 
         return (
             <div className="pane">
-                <LineContainerComponent title="GENERAL" selection={this.props.globalState}>
-                    <TextInputLineComponent lockObject={this.props.lockObject} label="Name" target={spriteManager} propertyName="name" onPropertyChangedObservable={this.props.onPropertyChangedObservable}/>
-                    <TextLineComponent label="Unique ID" value={spriteManager.uniqueId.toString()} />
-                    <TextLineComponent label="Capacity" value={spriteManager.capacity.toString()} />
-                    <TextureLinkLineComponent label="Texture" texture={spriteManager.texture} onSelectionChangedObservable={this.props.onSelectionChangedObservable}/>
+                <LineContainerComponent title={getTrans('GENERAL')} selection={this.props.globalState}>
+                    <TextInputLineComponent lockObject={this.props.lockObject} label={getTrans('Name')}target={spriteManager} propertyName="name" onPropertyChangedObservable={this.props.onPropertyChangedObservable}/>
+                    <TextLineComponent label={getTrans('UniqueID')} value={spriteManager.uniqueId.toString()} />
+                    <TextLineComponent label={getTrans('Capacity')} value={spriteManager.capacity.toString()} />
+                    <TextureLinkLineComponent label={getTrans('Texture')} texture={spriteManager.texture} onSelectionChangedObservable={this.props.onSelectionChangedObservable}/>
                     {
                         spriteManager.sprites.length < spriteManager.capacity &&
-                        <ButtonLineComponent label="Add new sprite" onClick={() => this.addNewSprite()} />
+                        <ButtonLineComponent label={getTrans('Addnewsprite')} onClick={() => this.addNewSprite()} />
                     }
-                    <ButtonLineComponent label="Dispose" onClick={() => this.disposeManager()} />
+                    <ButtonLineComponent label={getTrans('Dispose')} onClick={() => this.disposeManager()} />
                 </LineContainerComponent>
-                <LineContainerComponent title="FILE" selection={this.props.globalState}>
-                    <FileButtonLineComponent label="Load" onClick={(file) => this.loadFromFile(file)} accept=".json" />
-                    <ButtonLineComponent label="Save" onClick={() => this.saveToFile()} />
+                <LineContainerComponent title={getTrans('FILE')} selection={this.props.globalState}>
+                    <FileButtonLineComponent label={getTrans('Load')} onClick={(file) => this.loadFromFile(file)} accept=".json" />
+                    <ButtonLineComponent label={getTrans('Save')} onClick={() => this.saveToFile()} />
                 </LineContainerComponent>
-                <LineContainerComponent title="SNIPPET" selection={this.props.globalState}>
+                <LineContainerComponent title={getTrans('SNIPPET')} selection={this.props.globalState}>
                     {
                         spriteManager.snippetId &&
-                        <TextLineComponent label="Snippet ID" value={spriteManager.snippetId} />
+                        <TextLineComponent label={getTrans('SnippetID')} value={spriteManager.snippetId} />
                     }
-                    <ButtonLineComponent label="Load from snippet server" onClick={() => this.loadFromSnippet()} />
-                    <ButtonLineComponent label="Save to snippet server" onClick={() => this.saveToSnippet()} />
+                    <ButtonLineComponent label={getTrans('Loadfromsnippetserver')} onClick={() => this.loadFromSnippet()} />
+                    <ButtonLineComponent label={getTrans('Savetosnippetserver')} onClick={() => this.saveToSnippet()} />
                 </LineContainerComponent>
-                <LineContainerComponent title="PROPERTIES" selection={this.props.globalState}>
-                    <CheckBoxLineComponent label="Pickable" target={spriteManager} propertyName="isPickable" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <CheckBoxLineComponent label="Fog enabled" target={spriteManager} propertyName="fogEnabled" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <CheckBoxLineComponent label="No depth write" target={spriteManager} propertyName="disableDepthWrite" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <SliderLineComponent label="Rendering group ID" decimalCount={0} target={spriteManager} propertyName="renderingGroupId" minimum={RenderingManager.MIN_RENDERINGGROUPS} maximum={RenderingManager.MAX_RENDERINGGROUPS - 1} step={1} onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <OptionsLineComponent label="Alpha mode" options={alphaModeOptions} target={spriteManager} propertyName="blendMode"
+                <LineContainerComponent title={getTrans('PROPERTIES')} selection={this.props.globalState}>
+                    <CheckBoxLineComponent label={getTrans('Pickable')} target={spriteManager} propertyName="isPickable" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <CheckBoxLineComponent label={getTrans('Fogenabled')} target={spriteManager} propertyName="fogEnabled" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <CheckBoxLineComponent label={getTrans('Nodepthwrite')} target={spriteManager} propertyName="disableDepthWrite" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <SliderLineComponent label={getTrans('RenderinggroupID')} decimalCount={0} target={spriteManager} propertyName="renderingGroupId" minimum={RenderingManager.MIN_RENDERINGGROUPS} maximum={RenderingManager.MAX_RENDERINGGROUPS - 1} step={1} onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <OptionsLineComponent label={getTrans('Alphamode')} options={alphaModeOptions} target={spriteManager} propertyName="blendMode"
                         onPropertyChangedObservable={this.props.onPropertyChangedObservable}
                         onSelect={(value) => this.setState({ blendMode: value })} />
                 </LineContainerComponent>
-                <LineContainerComponent title="CELLS" selection={this.props.globalState}>
-                    <FloatLineComponent label="Cell width" isInteger={true} target={spriteManager} propertyName="cellWidth" min={0} onPropertyChangedObservable={this.props.onPropertyChangedObservable}/>
-                    <FloatLineComponent label="Cell height" isInteger={true} target={spriteManager} propertyName="cellHeight" min={0} onPropertyChangedObservable={this.props.onPropertyChangedObservable}/>
+                <LineContainerComponent title={getTrans('CELLS')} selection={this.props.globalState}>
+                    <FloatLineComponent label={getTrans('Cellwidth')} isInteger={true} target={spriteManager} propertyName="cellWidth" min={0} onPropertyChangedObservable={this.props.onPropertyChangedObservable}/>
+                    <FloatLineComponent label={getTrans('Cellheight')} isInteger={true} target={spriteManager} propertyName="cellHeight" min={0} onPropertyChangedObservable={this.props.onPropertyChangedObservable}/>
                 </LineContainerComponent>
             </div>
         );

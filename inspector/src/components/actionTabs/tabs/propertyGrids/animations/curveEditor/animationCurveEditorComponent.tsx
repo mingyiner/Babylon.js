@@ -9,7 +9,7 @@ import { CanvasComponent } from "./graph/canvasComponent";
 import { SideBarComponent } from "./sideBar/sideBarComponent";
 import { Animation } from "babylonjs/Animations/animation";
 import { TargetedAnimation } from "babylonjs/Animations/animationGroup";
-
+import {getTrans} from '../../../../../../translationLng';
 require("./scss/curveEditor.scss");
 
 interface IAnimationCurveEditorComponentProps {
@@ -86,14 +86,14 @@ export class AnimationCurveEditorComponent extends React.Component<
     public render() {
         return (
             <>
-                <ButtonLineComponent label="Edit" onClick={() => {
+                <ButtonLineComponent label={getTrans('Edit')} onClick={() => {
                     this.setState({isOpen: true});
                 }} />
                 {
                     this.state.isOpen &&
                     <PopupComponent
                         id="curve-editor"
-                        title="Animation Curve Editor"
+                        title={getTrans('AnimationCurveEditor')}
                         size={{ width: 1024, height: 512 }}
                         onResize={() => this.props.context.onHostWindowResized.notifyObservers()}
                         onClose={(window: Window) => this.onCloseAnimationCurveEditor(window)}

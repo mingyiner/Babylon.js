@@ -40,7 +40,7 @@ import { FileButtonLineComponent } from '../../../../../sharedUiComponents/lines
 import { TextInputLineComponent } from '../../../../../sharedUiComponents/lines/textInputLineComponent';
 import { ParticleHelper } from 'babylonjs/Particles/particleHelper';
 import { Color4LineComponent } from "../../../../../sharedUiComponents/lines/color4LineComponent";
-
+import {getTrans} from '../../../../../translationLng';
 interface IParticleSystemPropertyGridComponentProps {
     globalState: GlobalState;
     system: IParticleSystem,
@@ -257,28 +257,28 @@ export class ParticleSystemPropertyGridComponent extends React.Component<IPartic
         const system = this.props.system;
 
         var blendModeOptions = [
-            { label: "Add", value: ParticleSystem.BLENDMODE_ADD },
-            { label: "Multiply", value: ParticleSystem.BLENDMODE_MULTIPLY },
-            { label: "Multiply Add", value: ParticleSystem.BLENDMODE_MULTIPLYADD },
-            { label: "OneOne", value: ParticleSystem.BLENDMODE_ONEONE },
-            { label: "Standard", value: ParticleSystem.BLENDMODE_STANDARD },
+            { label: getTrans('Add'), value: ParticleSystem.BLENDMODE_ADD },
+            { label: getTrans('Multiply_'), value: ParticleSystem.BLENDMODE_MULTIPLY },
+            { label: getTrans('MultiplyAdd'), value: ParticleSystem.BLENDMODE_MULTIPLYADD },
+            { label: getTrans('Oneone'), value: ParticleSystem.BLENDMODE_ONEONE },
+            { label: getTrans('Standard'), value: ParticleSystem.BLENDMODE_STANDARD },
         ];
 
         var particleEmitterTypeOptions = [
-            { label: "Box", value: 0 },
-            { label: "Cone", value: 1 },
-            { label: "Cylinder", value: 2 },
-            { label: "Hemispheric", value: 3 },
-            { label: "Mesh", value: 4 },
-            { label: "Point", value: 5 },
-            { label: "Sphere", value: 6 },
+            { label: getTrans('Box'), value: 0 },
+            { label: getTrans('Cone'), value: 1 },
+            { label: getTrans('Cylinder'), value: 2 },
+            { label: getTrans('Hemispheric'), value: 3 },
+            { label: getTrans('Mesh'), value: 4 },
+            { label: getTrans('Point_'), value: 5 },
+            { label: getTrans('Sphere'), value: 6 },
         ];
 
 
         var meshEmitters = this.props.system.getScene()!.meshes.filter(m => !!m.name);
 
         var emitterOptions = [
-            { label: "None", value: -1 },
+            { label: getTrans('None'), value: -1 },
             { label: "Vector3", value: 0 }
         ];
 
@@ -293,45 +293,45 @@ export class ParticleSystemPropertyGridComponent extends React.Component<IPartic
                 <CustomPropertyGridComponent globalState={this.props.globalState} target={system}
                     lockObject={this.props.lockObject}
                     onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                <LineContainerComponent title="GENERAL" selection={this.props.globalState}>
+                <LineContainerComponent title={getTrans('GENERAL')} selection={this.props.globalState}>
                     <TextLineComponent label="ID" value={system.id} />
-                    <TextInputLineComponent lockObject={this.props.lockObject} label="Name" target={system} propertyName="name" onPropertyChangedObservable={this.props.onPropertyChangedObservable}/>
-                    <TextLineComponent label="Class" value={system.getClassName()} />
-                    <TextLineComponent label="Capacity" value={system.getCapacity().toString()} />
-                    <TextLineComponent label="Active count" value={system.getActiveCount().toString()} />
-                    <TextureLinkLineComponent label="Texture" texture={system.particleTexture} onSelectionChangedObservable={this.props.onSelectionChangedObservable}/>
-                    <OptionsLineComponent label="Blend mode" options={blendModeOptions} target={system} propertyName="blendMode" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <Vector3LineComponent label="World offset" target={system} propertyName="worldOffset"
+                    <TextInputLineComponent lockObject={this.props.lockObject} label={getTrans('Name')} target={system} propertyName="name" onPropertyChangedObservable={this.props.onPropertyChangedObservable}/>
+                    <TextLineComponent label={getTrans('Class')} value={system.getClassName()} />
+                    <TextLineComponent label={getTrans('Capacity')} value={system.getCapacity().toString()} />
+                    <TextLineComponent label={getTrans('Activecount')} value={system.getActiveCount().toString()} />
+                    <TextureLinkLineComponent label={getTrans('Texture')} texture={system.particleTexture} onSelectionChangedObservable={this.props.onSelectionChangedObservable}/>
+                    <OptionsLineComponent label={getTrans('Blendmode')} options={blendModeOptions} target={system} propertyName="blendMode" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <Vector3LineComponent label={getTrans('Worldoffset')} target={system} propertyName="worldOffset"
                         onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <Vector3LineComponent label="Gravity" target={system} propertyName="gravity"
+                    <Vector3LineComponent label={getTrans('Gravity')}target={system} propertyName="gravity"
                         onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <CheckBoxLineComponent label="Is billboard" target={system} propertyName="isBillboardBased" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <CheckBoxLineComponent label="Is local" target={system} propertyName="isLocal" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <CheckBoxLineComponent label="Force depth write" target={system} propertyName="forceDepthWrite" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <SliderLineComponent label="Update speed" target={system} propertyName="updateSpeed" minimum={0} maximum={0.1} decimalCount={3} step={0.001} onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <CheckBoxLineComponent label={getTrans('Isbillboard')} target={system} propertyName="isBillboardBased" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <CheckBoxLineComponent label={getTrans('Islocal')} target={system} propertyName="isLocal" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <CheckBoxLineComponent label={getTrans('Forcedepthwrite')} target={system} propertyName="forceDepthWrite" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <SliderLineComponent label={getTrans('Updatespeed')} target={system} propertyName="updateSpeed" minimum={0} maximum={0.1} decimalCount={3} step={0.001} onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
                 </LineContainerComponent>
-                <LineContainerComponent title="COMMANDS" selection={this.props.globalState}>
+                <LineContainerComponent title={getTrans('COMMANDS')} selection={this.props.globalState}>
                     {this.renderControls()}
-                    <ButtonLineComponent label={"Dispose"} onClick={() => {
+                    <ButtonLineComponent label={getTrans('Dispose')} onClick={() => {
                         this.props.globalState.onSelectionChangedObservable.notifyObservers(null);
                         system.dispose();
                     }} />
                 </LineContainerComponent>
-                <LineContainerComponent title="FILE" selection={this.props.globalState}>
-                    <FileButtonLineComponent label="Load" onClick={(file) => this.loadFromFile(file)} accept=".json" />
-                    <ButtonLineComponent label="Save" onClick={() => this.saveToFile()} />
+                <LineContainerComponent title={getTrans('FILE')} selection={this.props.globalState}>
+                    <FileButtonLineComponent label={getTrans('Load')} onClick={(file) => this.loadFromFile(file)} accept=".json" />
+                    <ButtonLineComponent label={getTrans('Save')} onClick={() => this.saveToFile()} />
                 </LineContainerComponent>
-                <LineContainerComponent title="SNIPPET" selection={this.props.globalState}>
+                <LineContainerComponent title={getTrans('SNIPPET')} selection={this.props.globalState}>
                     {
                         system.snippetId &&
-                        <TextLineComponent label="Snippet ID" value={system.snippetId} />
+                        <TextLineComponent label={getTrans('SnippetID')} value={system.snippetId} />
                     }
-                    <ButtonLineComponent label="Load from snippet server" onClick={() => this.loadFromSnippet()} />
-                    <ButtonLineComponent label="Save to snippet server" onClick={() => this.saveToSnippet()} />
+                    <ButtonLineComponent label={getTrans('Loadfromsnippetserver')} onClick={() => this.loadFromSnippet()} />
+                    <ButtonLineComponent label={getTrans('Savetosnippetserver')} onClick={() => this.saveToSnippet()} />
                 </LineContainerComponent>
-                <LineContainerComponent title="EMITTER" closed={true} selection={this.props.globalState}>
+                <LineContainerComponent title={getTrans('EMITTER')} closed={true} selection={this.props.globalState}>
                 <OptionsLineComponent
-                        label="Emitter"
+                        label={getTrans('Emitter')}
                         options={emitterOptions}
                         target={system}
                         propertyName="emitter"
@@ -373,14 +373,14 @@ export class ParticleSystemPropertyGridComponent extends React.Component<IPartic
                         />
                     {
                         system.emitter && ((system.emitter as Vector3).x === undefined) &&
-                        <TextLineComponent label="Link to emitter" value={(system.emitter as AbstractMesh).name} onLink={() => this.props.globalState.onSelectionChangedObservable.notifyObservers(system.emitter)}/>
+                        <TextLineComponent label={getTrans('Linktoemitter')} value={(system.emitter as AbstractMesh).name} onLink={() => this.props.globalState.onSelectionChangedObservable.notifyObservers(system.emitter)}/>
                     }
                     {
                         system.emitter && ((system.emitter as Vector3).x !== undefined) &&
-                        <Vector3LineComponent label="Position" target={system} propertyName="emitter" onPropertyChangedObservable={this.props.onPropertyChangedObservable}/>
+                        <Vector3LineComponent label={getTrans('Position')} target={system} propertyName="emitter" onPropertyChangedObservable={this.props.onPropertyChangedObservable}/>
                     }
                     <OptionsLineComponent
-                        label="Type"
+                        label={getTrans('Type')}
                         options={particleEmitterTypeOptions}
                         target={system}
                         propertyName="particleEmitterType"
@@ -443,8 +443,8 @@ export class ParticleSystemPropertyGridComponent extends React.Component<IPartic
                         this.renderEmitter()
                     }
                 </LineContainerComponent>
-                <LineContainerComponent title="EMISSION" closed={true} selection={this.props.globalState}>
-                    <FloatLineComponent lockObject={this.props.lockObject} label="Rate" target={system} propertyName="emitRate" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                <LineContainerComponent title={getTrans('EMISSION')} closed={true} selection={this.props.globalState}>
+                    <FloatLineComponent lockObject={this.props.lockObject} label={getTrans('Rate')} target={system} propertyName="emitRate" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
                     {
                         system instanceof ParticleSystem &&
                         <ValueGradientGridComponent globalState={this.props.globalState} gradients={system.getEmitRateGradients()!}
@@ -458,8 +458,8 @@ export class ParticleSystemPropertyGridComponent extends React.Component<IPartic
                             codeRecorderPropertyName="getEmitRateGradients()"
                             lockObject={this.props.lockObject}/>
                     }
-                    <FloatLineComponent lockObject={this.props.lockObject} label="Min emit power" target={system} propertyName="minEmitPower" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <FloatLineComponent lockObject={this.props.lockObject} label="Max emit power" target={system} propertyName="maxEmitPower" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <FloatLineComponent lockObject={this.props.lockObject} label={getTrans('Minemitpower')} target={system} propertyName="minEmitPower" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <FloatLineComponent lockObject={this.props.lockObject} label={getTrans('Maxemitpower')}target={system} propertyName="maxEmitPower" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
                     <ValueGradientGridComponent globalState={this.props.globalState} gradients={system.getVelocityGradients()!}
                         label="Velocity gradients"
                         docLink="https://doc.babylonjs.com/babylon101/particles#velocity-over-time"
@@ -491,18 +491,18 @@ export class ParticleSystemPropertyGridComponent extends React.Component<IPartic
                         mode={GradientGridMode.Factor}
                         lockObject={this.props.lockObject}/>
                 </LineContainerComponent>
-                <LineContainerComponent title="SIZE" closed={true} selection={this.props.globalState}>
+                <LineContainerComponent title={getTrans('SIZE')} closed={true} selection={this.props.globalState}>
                     {
                         (!system.getSizeGradients() || system.getSizeGradients()?.length === 0)&&
                         <>
-                            <FloatLineComponent lockObject={this.props.lockObject} label="Min size" target={system} propertyName="minSize" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                            <FloatLineComponent lockObject={this.props.lockObject} label="Max size" target={system} propertyName="maxSize" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                            <FloatLineComponent lockObject={this.props.lockObject} label={getTrans('Minsize')} target={system} propertyName="minSize" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                            <FloatLineComponent lockObject={this.props.lockObject} label={getTrans('Maxsize')} target={system} propertyName="maxSize" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
                         </>
                     }
-                    <FloatLineComponent lockObject={this.props.lockObject} label="Min scale X" target={system} propertyName="minScaleX" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <FloatLineComponent lockObject={this.props.lockObject} label="Max scale X" target={system} propertyName="maxScaleX" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <FloatLineComponent lockObject={this.props.lockObject} label="Min scale Y" target={system} propertyName="minScaleY" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <FloatLineComponent lockObject={this.props.lockObject} label="Max scale Y" target={system} propertyName="maxScaleY" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <FloatLineComponent lockObject={this.props.lockObject} label={getTrans('MinscaleX')} target={system} propertyName="minScaleX" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <FloatLineComponent lockObject={this.props.lockObject} label={getTrans('MaxscaleX')} target={system} propertyName="maxScaleX" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <FloatLineComponent lockObject={this.props.lockObject} label={getTrans('MinscaleY')} target={system} propertyName="minScaleY" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <FloatLineComponent lockObject={this.props.lockObject} label={getTrans('MaxscaleY')} target={system} propertyName="maxScaleY" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
                     {
                         system instanceof ParticleSystem &&
                         <ValueGradientGridComponent globalState={this.props.globalState} gradients={system.getStartSizeGradients()!}
@@ -527,10 +527,10 @@ export class ParticleSystemPropertyGridComponent extends React.Component<IPartic
                         mode={GradientGridMode.Factor}
                         lockObject={this.props.lockObject}/>
                 </LineContainerComponent>
-                <LineContainerComponent title="LIFETIME" closed={true} selection={this.props.globalState}>
-                    <FloatLineComponent lockObject={this.props.lockObject} label="Min lifetime" target={system} propertyName="minLifeTime" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <FloatLineComponent lockObject={this.props.lockObject} label="Max lifetime" target={system} propertyName="maxLifeTime" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <FloatLineComponent lockObject={this.props.lockObject} label="Target stop duration" target={system} propertyName="targetStopDuration" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                <LineContainerComponent title={getTrans('LIFETIME')} closed={true} selection={this.props.globalState}>
+                    <FloatLineComponent lockObject={this.props.lockObject} label={getTrans('Minlifetime')} target={system} propertyName="minLifeTime" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <FloatLineComponent lockObject={this.props.lockObject} label={getTrans('Maxlifetime')} target={system} propertyName="maxLifeTime" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <FloatLineComponent lockObject={this.props.lockObject} label={getTrans('Targetstopduration')} target={system} propertyName="targetStopDuration" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
                     {
                         system instanceof ParticleSystem &&
                         <ValueGradientGridComponent globalState={this.props.globalState} gradients={system.getLifeTimeGradients()!}
@@ -545,15 +545,15 @@ export class ParticleSystemPropertyGridComponent extends React.Component<IPartic
                             lockObject={this.props.lockObject}/>
                     }
                 </LineContainerComponent>
-                <LineContainerComponent title="COLORS" closed={true} selection={this.props.globalState}>
+                <LineContainerComponent title={getTrans('COLORS')} closed={true} selection={this.props.globalState}>
                     {
                         (!system.getColorGradients() || system.getColorGradients()?.length === 0) &&
                         <>
-                            <Color4LineComponent label="Color 1" target={system} propertyName="color1"
+                            <Color4LineComponent label={getTrans('Color1')} target={system} propertyName="color1"
                                 onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                            <Color4LineComponent label="Color 2" target={system} propertyName="color2"
+                            <Color4LineComponent label={getTrans('Color2')} target={system} propertyName="color2"
                                 onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                            <Color4LineComponent label="Color dead" target={system} propertyName="colorDead"
+                            <Color4LineComponent label={getTrans('Colordead')} target={system} propertyName="colorDead"
                                 onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
                         </>
                     }
@@ -571,12 +571,12 @@ export class ParticleSystemPropertyGridComponent extends React.Component<IPartic
                     {
                         system instanceof ParticleSystem &&
                         <>
-                            <CheckBoxLineComponent label="Enable ramp grandients" target={system} propertyName="useRampGradients"/>
+                            <CheckBoxLineComponent label={getTrans('Enablerampgrandients')} target={system} propertyName="useRampGradients"/>
                             {
                                 system.useRampGradients &&
                                 <>
                                     <ValueGradientGridComponent globalState={this.props.globalState} gradients={system.getRampGradients()!}
-                                    label="Ramp gradients"
+                                    label={getTrans('Rampgradients')}
                                     docLink="https://doc.babylonjs.com/babylon101/particles#ramp-gradients"
                                     onCreateRequired={() => {
                                         system.addRampGradient(0, Color3.White());
@@ -588,7 +588,7 @@ export class ParticleSystemPropertyGridComponent extends React.Component<IPartic
                                     lockObject={this.props.lockObject}/>
 
                                 <ValueGradientGridComponent globalState={this.props.globalState} gradients={system.getColorRemapGradients()!}
-                                    label="Color remap gradients"
+                                    label={getTrans('Colorremapgradients')}
                                     docLink="https://doc.babylonjs.com/babylon101/particles#ramp-gradients"
                                     onCreateRequired={() => {
                                         system.addColorRemapGradient(0, 1, 1);
@@ -598,7 +598,7 @@ export class ParticleSystemPropertyGridComponent extends React.Component<IPartic
                                     mode={GradientGridMode.Factor}
                                     lockObject={this.props.lockObject}/>
                                 <ValueGradientGridComponent globalState={this.props.globalState} gradients={system.getAlphaRemapGradients()!}
-                                    label="Alpha remap gradients"
+                                    label={getTrans('Alpharemapgradients')}
                                     docLink="https://doc.babylonjs.com/babylon101/particles#ramp-gradients"
                                     onCreateRequired={() => {
                                         system.addAlphaRemapGradient(0, 1, 1);
@@ -612,13 +612,13 @@ export class ParticleSystemPropertyGridComponent extends React.Component<IPartic
                         </>
                     }
                 </LineContainerComponent>
-                <LineContainerComponent title="ROTATION" closed={true} selection={this.props.globalState}>
-                    <FloatLineComponent lockObject={this.props.lockObject} label="Min angular speed" target={system} propertyName="minAngularSpeed" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <FloatLineComponent lockObject={this.props.lockObject} label="Max angular speed" target={system} propertyName="maxAngularSpeed" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <FloatLineComponent lockObject={this.props.lockObject} label="Min initial rotation" target={system} propertyName="minInitialRotation" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <FloatLineComponent lockObject={this.props.lockObject} label="Max initial rotation" target={system} propertyName="maxInitialRotation" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                <LineContainerComponent title={getTrans('ROTATION')} closed={true} selection={this.props.globalState}>
+                    <FloatLineComponent lockObject={this.props.lockObject} label={getTrans('Minangularspeed')} target={system} propertyName="minAngularSpeed" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <FloatLineComponent lockObject={this.props.lockObject} label={getTrans('Maxangularspeed')} target={system} propertyName="maxAngularSpeed" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <FloatLineComponent lockObject={this.props.lockObject} label={getTrans('Mininitialrotation')} target={system} propertyName="minInitialRotation" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <FloatLineComponent lockObject={this.props.lockObject} label={getTrans('Maxinitialrotation')} target={system} propertyName="maxInitialRotation" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
                     <ValueGradientGridComponent globalState={this.props.globalState} gradients={system.getAngularSpeedGradients()!}
-                        label="Angular speed gradients"
+                        label={getTrans('Angularspeedgradients')}
                         docLink="hhttps://doc.babylonjs.com/babylon101/particles#rotation"
                         onCreateRequired={() => {
                             system.addAngularSpeedGradient(0, 0.1, 0.1);
@@ -628,15 +628,15 @@ export class ParticleSystemPropertyGridComponent extends React.Component<IPartic
                         mode={GradientGridMode.Factor}
                         lockObject={this.props.lockObject}/>
                 </LineContainerComponent>
-                <LineContainerComponent title="SPRITESHEET" closed={true} selection={this.props.globalState}>
-                    <CheckBoxLineComponent label="Animation sheet enabled" target={system} propertyName="isAnimationSheetEnabled" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <FloatLineComponent label="First sprite index" isInteger={true} target={system} propertyName="startSpriteCellID" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <FloatLineComponent label="Last sprite index" isInteger={true} target={system} propertyName="endSpriteCellID" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <CheckBoxLineComponent label="Animation Loop" target={system} propertyName="spriteCellLoop" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <CheckBoxLineComponent label="Random start cell index" target={system} propertyName="spriteRandomStartCell" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <FloatLineComponent label="Cell width" isInteger={true} target={system} propertyName="spriteCellWidth" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <FloatLineComponent label="Cell height" isInteger={true} target={system} propertyName="spriteCellHeight" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <SliderLineComponent label="Cell change speed" target={system} propertyName="spriteCellChangeSpeed" minimum={0} maximum={10} step={0.1} onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                <LineContainerComponent title={getTrans('SPRITESHEET')} closed={true} selection={this.props.globalState}>
+                    <CheckBoxLineComponent label={getTrans('Animationsheetenabled')} target={system} propertyName="isAnimationSheetEnabled" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <FloatLineComponent label={getTrans('Firstspriteindex')} isInteger={true} target={system} propertyName="startSpriteCellID" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <FloatLineComponent label={getTrans('Lastspriteindex')} isInteger={true} target={system} propertyName="endSpriteCellID" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <CheckBoxLineComponent label={getTrans('AnimationLoop')} target={system} propertyName="spriteCellLoop" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <CheckBoxLineComponent label={getTrans('Randomstartcellindex')} target={system} propertyName="spriteRandomStartCell" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <FloatLineComponent label={getTrans('Cellwidth')} isInteger={true} target={system} propertyName="spriteCellWidth" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <FloatLineComponent label={getTrans('Cellheight')} isInteger={true} target={system} propertyName="spriteCellHeight" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <SliderLineComponent label={getTrans('Cellchangespeed')} target={system} propertyName="spriteCellChangeSpeed" minimum={0} maximum={10} step={0.1} onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
                 </LineContainerComponent>
             </div>
         );

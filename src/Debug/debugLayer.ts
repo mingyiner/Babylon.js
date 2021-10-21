@@ -84,6 +84,8 @@ export interface IInspectorOptions {
      * Optional initial tab (default to DebugLayerTab.Properties)
      */
     initialTab?: DebugLayerTab;
+
+    useLng?: string;
 }
 
 declare module "../scene" {

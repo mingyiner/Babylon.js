@@ -8,6 +8,7 @@ import { LineContainerComponent } from "../../../../sharedUiComponents/lines/lin
 import { LockObject } from "../../../../sharedUiComponents/tabs/propertyGrids/lockObject";
 import { GlobalState } from "../../../globalState";
 import { OptionsLineComponent } from '../../../../sharedUiComponents/lines/optionsLineComponent';
+import {getTrans} from '../../../../translationLng';
 
 declare type KHR_materials_variants = import("babylonjs-loaders/glTF/2.0/Extensions/KHR_materials_variants").KHR_materials_variants;
 
@@ -43,13 +44,13 @@ export class VariantsPropertyGridComponent extends React.Component<IVariantsProp
             return {label: v, value: i + 1}
         });
 
-        options.splice(0, 0, {label: "Original", value: 0})
+        options.splice(0, 0, {label: getTrans('Original'), value: 0})
 
         return (
             <div>
-                <LineContainerComponent title="VARIANTS" selection={this.props.globalState}>             
+                <LineContainerComponent title={getTrans('VARIANTS')} selection={this.props.globalState}>             
                 <OptionsLineComponent
-                    label="Active variant" options={options} noDirectUpdate={true}
+                    label={getTrans('Activevariant')} options={options} noDirectUpdate={true}
                     target={this.props.host}
                     propertyName=""
                     onSelect={(value: number) => {

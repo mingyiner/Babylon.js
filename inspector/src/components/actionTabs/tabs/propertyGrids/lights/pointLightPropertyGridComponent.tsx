@@ -9,7 +9,7 @@ import { Vector3LineComponent } from "../../../../../sharedUiComponents/lines/ve
 import { CommonShadowLightPropertyGridComponent } from "./commonShadowLightPropertyGridComponent";
 import { LockObject } from "../../../../../sharedUiComponents/tabs/propertyGrids/lockObject";
 import { GlobalState } from '../../../../globalState';
-
+import {getTrans} from '../../../../../translationLng';
 interface IPointLightPropertyGridComponentProps {
     globalState: GlobalState,
     light: PointLight,
@@ -28,10 +28,10 @@ export class PointLightPropertyGridComponent extends React.Component<IPointLight
         return (
             <div className="pane">
                 <CommonLightPropertyGridComponent globalState={this.props.globalState} lockObject={this.props.lockObject} light={light} onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                <LineContainerComponent title="SETUP" selection={this.props.globalState}>
-                    <Color3LineComponent label="Diffuse" target={light} propertyName="diffuse" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <Color3LineComponent label="Specular" target={light} propertyName="specular" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <Vector3LineComponent label="Position" target={light} propertyName="position" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                <LineContainerComponent title={getTrans('SETUP')} selection={this.props.globalState}>
+                    <Color3LineComponent label={getTrans('Diffuse')} target={light} propertyName="diffuse" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <Color3LineComponent label={getTrans('Specular')} target={light} propertyName="specular" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <Vector3LineComponent label={getTrans('Position')} target={light} propertyName="position" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
                 </LineContainerComponent>
                 <CommonShadowLightPropertyGridComponent globalState={this.props.globalState} lockObject={this.props.lockObject} light={light} onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
             </div>

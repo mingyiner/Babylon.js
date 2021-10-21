@@ -12,7 +12,7 @@ import { TextInputLineComponent } from "../../../../../sharedUiComponents/lines/
 import { AnimationGroup } from "babylonjs/Animations/animationGroup";
 import { AnimationCurveEditorComponent } from "./curveEditor/animationCurveEditorComponent";
 import { Context } from "./curveEditor/context";
-
+import {getTrans} from '../../../../../translationLng';
 interface ITargetedAnimationGridComponentProps {
     globalState: GlobalState;
     targetedAnimation: TargetedAnimation;
@@ -77,12 +77,12 @@ export class TargetedAnimationGridComponent extends React.Component<ITargetedAni
 
         return (
             <div className="pane">
-                <LineContainerComponent title="GENERAL" selection={this.props.globalState}>
-                    <TextLineComponent label="Class" value={targetedAnimation.getClassName()} />
-                    <TextInputLineComponent lockObject={this.props.lockObject} label="Name" target={targetedAnimation.animation} propertyName="name" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    {targetedAnimation.target.name && <TextLineComponent label="Target" value={targetedAnimation.target.name} onLink={() => this.props.globalState.onSelectionChangedObservable.notifyObservers(targetedAnimation)} />}
+                <LineContainerComponent title={getTrans('GENERAL')} selection={this.props.globalState}>
+                    <TextLineComponent label={getTrans('Class')} value={targetedAnimation.getClassName()} />
+                    <TextInputLineComponent lockObject={this.props.lockObject} label={getTrans('Name')} target={targetedAnimation.animation} propertyName="name" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    {targetedAnimation.target.name && <TextLineComponent label={getTrans('Target')} value={targetedAnimation.target.name} onLink={() => this.props.globalState.onSelectionChangedObservable.notifyObservers(targetedAnimation)} />}
                     <AnimationCurveEditorComponent globalState={this.props.globalState} context={this._animationCurveEditorContext}/>
-                    <ButtonLineComponent label="Dispose" onClick={this.deleteAnimation} />
+                    <ButtonLineComponent label={getTrans('Dispose')} onClick={this.deleteAnimation} />
                 </LineContainerComponent>
             </div>
         );

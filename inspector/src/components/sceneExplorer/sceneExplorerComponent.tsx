@@ -26,7 +26,7 @@ import { StandardMaterial } from 'babylonjs/Materials/standardMaterial';
 import { PBRMaterial } from 'babylonjs/Materials/PBR/pbrMaterial';
 import { SpriteManager } from 'babylonjs/Sprites/spriteManager';
 import { TargetCamera } from 'babylonjs/Cameras/targetCamera';
-
+import {getTrans} from '../../translationLng'
 require("./sceneExplorer.scss");
 
 interface ISceneExplorerFilterComponentProps {
@@ -281,7 +281,7 @@ export class SceneExplorerComponent extends React.Component<ISceneExplorerCompon
         if (scene.activeCamera) {
             if (!pipelines.some((p) => p.getClassName() === "DefaultRenderingPipeline")) {
                 pipelineContextMenus.push({
-                    label: "Add new Default Rendering Pipeline",
+                    label: getTrans('AddnewDefaultRenderingPipeline'),
                     action: () => {
                         let newPipeline = new DefaultRenderingPipeline("Default rendering pipeline", true, scene, scene.cameras);
                         this.props.globalState.onSelectionChangedObservable.notifyObservers(newPipeline);
@@ -291,7 +291,7 @@ export class SceneExplorerComponent extends React.Component<ISceneExplorerCompon
 
             if (!pipelines.some((p) => p.getClassName() === "SSAORenderingPipeline")) {
                 pipelineContextMenus.push({
-                    label: "Add new SSAO Rendering Pipeline",
+                    label: getTrans('AddnewSSAORenderingPipeline'),
                     action: () => {
                         let newPipeline = new SSAORenderingPipeline("SSAO rendering pipeline", scene, 1, scene.cameras);
                         this.props.globalState.onSelectionChangedObservable.notifyObservers(newPipeline);
@@ -301,7 +301,7 @@ export class SceneExplorerComponent extends React.Component<ISceneExplorerCompon
 
             if (scene.getEngine().getCaps().drawBuffersExtension && !pipelines.some((p) => p.getClassName() === "SSAORenderingPipeline")) {
                 pipelineContextMenus.push({
-                    label: "Add new SSAO2 Rendering Pipeline",
+                    label: getTrans('AddnewSSAO2RenderingPipeline'),
                     action: () => {
                         let newPipeline = new SSAO2RenderingPipeline("SSAO2 rendering pipeline", scene, 1, scene.cameras);
                         this.props.globalState.onSelectionChangedObservable.notifyObservers(newPipeline);
@@ -312,21 +312,21 @@ export class SceneExplorerComponent extends React.Component<ISceneExplorerCompon
 
         let nodeContextMenus: { label: string, action: () => void }[] = [];
         nodeContextMenus.push({
-            label: "Add new point light",
+            label: getTrans('Addnewpointlight'),
             action: () => {
                 let newPointLight = new PointLight("point light", Vector3.Zero(), scene);
                 this.props.globalState.onSelectionChangedObservable.notifyObservers(newPointLight);
             }
         });
         nodeContextMenus.push({
-            label: "Add new directional light",
+            label: getTrans('Addnewdirectionallight'),
             action: () => {
                 let newDirectionalLight = new DirectionalLight("directional light", new Vector3(-1, -1, -0.5), scene);
                 this.props.globalState.onSelectionChangedObservable.notifyObservers(newDirectionalLight);
             }
         });
         nodeContextMenus.push({
-            label: "Add new free camera",
+            label: getTrans('Addnewfreecamera'),
             action: () => {
                 let newFreeCamera = new FreeCamera("free camera", scene.activeCamera ? scene.activeCamera.globalPosition : new Vector3(0, 0, -5), scene);
 
@@ -353,21 +353,21 @@ export class SceneExplorerComponent extends React.Component<ISceneExplorerCompon
         // Materials
         let materialsContextMenus: { label: string, action: () => void }[] = [];
         materialsContextMenus.push({
-            label: "Add new standard material",
+            label: getTrans('Addnewstandardmaterial'),
             action: () => {
                 let newStdMaterial = new StandardMaterial(getUniqueName("Standard material"), scene);
                 this.props.globalState.onSelectionChangedObservable.notifyObservers(newStdMaterial);
             }
         });
         materialsContextMenus.push({
-            label: "Add new PBR material",
+            label: getTrans('AddnewPBRmaterial'),
             action: () => {
                 let newPBRMaterial = new PBRMaterial(getUniqueName("PBR material"), scene);
                 this.props.globalState.onSelectionChangedObservable.notifyObservers(newPBRMaterial);
             }
         });
         materialsContextMenus.push({
-            label: "Add new node material",
+            label: getTrans('Addnewnodematerial'),
             action: () => {
                 let newNodeMaterial = new NodeMaterial(getUniqueName("node material"), scene);
                 newNodeMaterial.setToDefault();
@@ -387,7 +387,7 @@ export class SceneExplorerComponent extends React.Component<ISceneExplorerCompon
         // Sprite Managers
         let spriteManagersContextMenus: { label: string, action: () => void }[] = [];
         spriteManagersContextMenus.push({
-            label: "Add new sprite manager",
+            label: getTrans('Addnewspritemanager'),
             action: () => {
                 let newSpriteManager = new SpriteManager("Default sprite manager", "//playground.babylonjs.com/textures/player.png", 500, 64, scene);
                 this.props.globalState.onSelectionChangedObservable.notifyObservers(newSpriteManager);
@@ -397,7 +397,7 @@ export class SceneExplorerComponent extends React.Component<ISceneExplorerCompon
         // Particle systems
         let particleSystemsContextMenus: { label: string, action: () => void }[] = [];
         particleSystemsContextMenus.push({
-            label: "Add new CPU particle system",
+            label: getTrans('AddnewCPUparticlesystem'),
             action: () => {
                 let newSystem = ParticleHelper.CreateDefault(Vector3.Zero(), 10000, scene);
                 newSystem.name = "CPU particle system";
@@ -408,7 +408,7 @@ export class SceneExplorerComponent extends React.Component<ISceneExplorerCompon
 
         if (GPUParticleSystem.IsSupported) {
             particleSystemsContextMenus.push({
-                label: "Add new GPU particle system",
+                label: getTrans('AddnewGPUparticlesystem'),
                 action: () => {
                     let newSystem = ParticleHelper.CreateDefault(Vector3.Zero(), 10000, scene, true);
                     newSystem.name = "GPU particle system";
@@ -418,15 +418,6 @@ export class SceneExplorerComponent extends React.Component<ISceneExplorerCompon
             });
         }
 
-        const rootNodes = scene.rootNodes.slice(0);
-
-        // Adding nodes parented to a bone
-        for (const mesh of scene.meshes) {
-            if (mesh.parent && mesh.parent.getClassName() === "Bone") {
-                rootNodes.push(mesh);
-            }
-        }
-
         return (
             <div id="tree" onContextMenu={(e) => e.preventDefault()}>
                 <SceneExplorerFilterComponent onFilter={(filter) => this.filterContent(filter)} />
@@ -434,44 +425,44 @@ export class SceneExplorerComponent extends React.Component<ISceneExplorerCompon
                     extensibilityGroups={this.props.extensibilityGroups} selectedEntity={this.state.selectedEntity} scene={scene} onRefresh={() => this.forceUpdate()} onSelectionChangedObservable={this.props.globalState.onSelectionChangedObservable} />
                 <TreeItemComponent globalState={this.props.globalState}
                     contextMenuItems={nodeContextMenus}
-                    extensibilityGroups={this.props.extensibilityGroups} selectedEntity={this.state.selectedEntity} items={rootNodes} label="Nodes" offset={1} filter={this.state.filter} />
+                    extensibilityGroups={this.props.extensibilityGroups} selectedEntity={this.state.selectedEntity} items={scene.rootNodes} label={getTrans('Nodes')} offset={1} filter={this.state.filter} />
                 {
                     scene.skeletons.length > 0 &&
-                    <TreeItemComponent globalState={this.props.globalState} extensibilityGroups={this.props.extensibilityGroups} selectedEntity={this.state.selectedEntity} items={scene.skeletons} label="Skeletons" offset={1} filter={this.state.filter} />
+                    <TreeItemComponent globalState={this.props.globalState} extensibilityGroups={this.props.extensibilityGroups} selectedEntity={this.state.selectedEntity} items={scene.skeletons} label={getTrans('Skeletons')} offset={1} filter={this.state.filter} />
                 }
                 <TreeItemComponent globalState={this.props.globalState} extensibilityGroups={this.props.extensibilityGroups} selectedEntity={this.state.selectedEntity} items={materials}
                     contextMenuItems={materialsContextMenus}
-                    label="Materials" offset={1} filter={this.state.filter} />
-                <TreeItemComponent globalState={this.props.globalState} extensibilityGroups={this.props.extensibilityGroups} selectedEntity={this.state.selectedEntity} items={textures} label="Textures" offset={1} filter={this.state.filter} />
+                    label={getTrans('Materials')} offset={1} filter={this.state.filter} />
+                <TreeItemComponent globalState={this.props.globalState} extensibilityGroups={this.props.extensibilityGroups} selectedEntity={this.state.selectedEntity} items={textures} label={getTrans('Textures')} offset={1} filter={this.state.filter} />
                 {
                     postProcessses.length > 0 &&
-                    <TreeItemComponent globalState={this.props.globalState} extensibilityGroups={this.props.extensibilityGroups} selectedEntity={this.state.selectedEntity} items={postProcessses} label="Post-processes" offset={1} filter={this.state.filter} />
+                    <TreeItemComponent globalState={this.props.globalState} extensibilityGroups={this.props.extensibilityGroups} selectedEntity={this.state.selectedEntity} items={postProcessses} label={getTrans('Post_processes')} offset={1} filter={this.state.filter} />
                 }
                 <TreeItemComponent globalState={this.props.globalState} extensibilityGroups={this.props.extensibilityGroups}
                     contextMenuItems={pipelineContextMenus}
-                    selectedEntity={this.state.selectedEntity} items={pipelines} label="Rendering pipelines" offset={1} filter={this.state.filter} />
+                    selectedEntity={this.state.selectedEntity} items={pipelines} label= {getTrans('RenderingPipelines')} offset={1} filter={this.state.filter} />
                 {
                     scene.effectLayers && scene.effectLayers.length > 0 &&
-                    <TreeItemComponent globalState={this.props.globalState} extensibilityGroups={this.props.extensibilityGroups} selectedEntity={this.state.selectedEntity} items={scene.effectLayers} label="Effect layers" offset={1} filter={this.state.filter} />
+                    <TreeItemComponent globalState={this.props.globalState} extensibilityGroups={this.props.extensibilityGroups} selectedEntity={this.state.selectedEntity} items={scene.effectLayers} label={getTrans('EffectLayers')} offset={1} filter={this.state.filter} />
                 }
                 <TreeItemComponent globalState={this.props.globalState}
                     contextMenuItems={particleSystemsContextMenus}
-                    extensibilityGroups={this.props.extensibilityGroups} selectedEntity={this.state.selectedEntity} items={scene.particleSystems} label="Particle systems" offset={1} filter={this.state.filter} />
+                    extensibilityGroups={this.props.extensibilityGroups} selectedEntity={this.state.selectedEntity} items={scene.particleSystems} label={getTrans('ParticleSystems')} offset={1} filter={this.state.filter} />
                 <TreeItemComponent globalState={this.props.globalState}
                     contextMenuItems={spriteManagersContextMenus}
                     forceSubitems={true}
-                    extensibilityGroups={this.props.extensibilityGroups} selectedEntity={this.state.selectedEntity} items={scene.spriteManagers} label="Sprite managers" offset={1} filter={this.state.filter} />
+                    extensibilityGroups={this.props.extensibilityGroups} selectedEntity={this.state.selectedEntity} items={scene.spriteManagers} label={getTrans("SpriteManagers")} offset={1} filter={this.state.filter} />
                 {
                     guiElements && guiElements.length > 0 &&
                     <TreeItemComponent globalState={this.props.globalState} extensibilityGroups={this.props.extensibilityGroups} selectedEntity={this.state.selectedEntity} items={guiElements} label="GUI" offset={1} filter={this.state.filter} />
                 }
                 {
                     scene.animationGroups.length > 0 &&
-                    <TreeItemComponent globalState={this.props.globalState} extensibilityGroups={this.props.extensibilityGroups} selectedEntity={this.state.selectedEntity} items={scene.animationGroups} label="Animation groups" offset={1} filter={this.state.filter} />
+                    <TreeItemComponent globalState={this.props.globalState} extensibilityGroups={this.props.extensibilityGroups} selectedEntity={this.state.selectedEntity} items={scene.animationGroups} label={getTrans('AnimationGroups')} offset={1} filter={this.state.filter} />
                 }
                 {
                     scene.mainSoundTrack && scene.mainSoundTrack.soundCollection.length > 0 &&
-                    <TreeItemComponent globalState={this.props.globalState} extensibilityGroups={this.props.extensibilityGroups} selectedEntity={this.state.selectedEntity} items={scene.mainSoundTrack.soundCollection} label="Sounds" offset={1} filter={this.state.filter} />
+                    <TreeItemComponent globalState={this.props.globalState} extensibilityGroups={this.props.extensibilityGroups} selectedEntity={this.state.selectedEntity} items={scene.mainSoundTrack.soundCollection} label={getTrans('Sounds')} offset={1} filter={this.state.filter} />
                 }
             </div>
         );

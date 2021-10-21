@@ -9,7 +9,7 @@ import { CommonPostProcessPropertyGridComponent } from './commonPostProcessPrope
 import { GlobalState } from '../../../../globalState';
 import { LineContainerComponent } from '../../../../../sharedUiComponents/lines/lineContainerComponent';
 import { ButtonLineComponent } from '../../../../../sharedUiComponents/lines/buttonLineComponent';
-
+import {getTrans} from '../../../../../translationLng';
 interface IPostProcessPropertyGridComponentProps {
     globalState: GlobalState;
     postProcess: PostProcess,
@@ -35,8 +35,8 @@ export class PostProcessPropertyGridComponent extends React.Component<IPostProce
                 <CommonPostProcessPropertyGridComponent globalState={this.props.globalState} lockObject={this.props.lockObject} postProcess={postProcess} onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
                 {
                     postProcess.nodeMaterialSource &&
-                    <LineContainerComponent title="CONFIGURATION" selection={this.props.globalState}>
-                        <ButtonLineComponent label="Node Material Editor" onClick={() => this.edit()} />
+                    <LineContainerComponent title={getTrans('CONFIGURATION')} selection={this.props.globalState}>
+                        <ButtonLineComponent label={getTrans('NodeMaterialEditor')} onClick={() => this.edit()} />
                     </LineContainerComponent>                
                 }
             </div>

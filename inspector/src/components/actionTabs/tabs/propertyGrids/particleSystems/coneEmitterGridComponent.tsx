@@ -6,7 +6,7 @@ import { PropertyChangedEvent } from '../../../../propertyChangedEvent';
 import { ConeParticleEmitter } from 'babylonjs/Particles/EmitterTypes/coneParticleEmitter';
 import { SliderLineComponent } from '../../../../../sharedUiComponents/lines/sliderLineComponent';
 import { CheckBoxLineComponent } from '../../../../../sharedUiComponents/lines/checkBoxLineComponent';
-
+import {getTrans} from '../../../../../translationLng';
 interface IConeEmitterGridComponentProps {
     globalState: GlobalState;
     emitter: ConeParticleEmitter,
@@ -24,13 +24,13 @@ export class ConeEmitterGridComponent extends React.Component<IConeEmitterGridCo
         let emitter = this.props.emitter;
         return (
             <>
-                <SliderLineComponent label="Radius range" target={emitter} propertyName="radiusRange" minimum={0} maximum={1} step={0.01} 
+                <SliderLineComponent label={getTrans('Radiusrange')} target={emitter} propertyName="radiusRange" minimum={0} maximum={1} step={0.01} 
                     onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                <SliderLineComponent label="Height range" target={emitter} propertyName="heightRange" minimum={0} maximum={1} step={0.01} 
+                <SliderLineComponent label={getTrans('Heightrange')} target={emitter} propertyName="heightRange" minimum={0} maximum={1} step={0.01} 
                     onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                <CheckBoxLineComponent label="Emit from spawn point only" target={emitter} propertyName="emitFromSpawnPointOnly" 
+                <CheckBoxLineComponent label={getTrans('Emitfromspawnpointonly')} target={emitter} propertyName="emitFromSpawnPointOnly" 
                     onPropertyChangedObservable={this.props.onPropertyChangedObservable} />                    
-                <SliderLineComponent label="Direction randomizer" target={emitter} propertyName="directionRandomizer" minimum={0} maximum={1} step={0.01} 
+                <SliderLineComponent label={getTrans('Directionrandomizer')} target={emitter} propertyName="directionRandomizer" minimum={0} maximum={1} step={0.01} 
                     onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
             </>
         );

@@ -16,7 +16,7 @@ import { OptionsLineComponent } from "../../../../../sharedUiComponents/lines/op
 import { FloatLineComponent } from "../../../../../sharedUiComponents/lines/floatLineComponent";
 import { ButtonLineComponent } from "../../../../../sharedUiComponents/lines/buttonLineComponent";
 
-
+import {getTrans} from '../../../../../translationLng';
 interface ISkeletonPropertyGridComponentProps {
     globalState: GlobalState;
     skeleton: Skeleton,
@@ -160,20 +160,20 @@ export class SkeletonPropertyGridComponent extends React.Component<ISkeletonProp
         const skeleton = this.props.skeleton;
 
         const debugModeOptions = [
-            { label: "Lines", value: SkeletonViewer.DISPLAY_LINES },
-            { label: "Spheres", value: SkeletonViewer.DISPLAY_SPHERES },
-            { label: "Sphere and Spurs", value: SkeletonViewer.DISPLAY_SPHERE_AND_SPURS }
+            { label: getTrans('Lines'), value: SkeletonViewer.DISPLAY_LINES },
+            { label: getTrans('Spheres'), value: SkeletonViewer.DISPLAY_SPHERES },
+            { label: getTrans('SphereandSpurs'), value: SkeletonViewer.DISPLAY_SPHERE_AND_SPURS }
         ];
 
         let displayOptions;
         if (this._skeletonViewerDisplayOptions.displayMode > SkeletonViewer.DISPLAY_LINES) {
             displayOptions =
-                (<LineContainerComponent title="DISPLAY OPTIONS" selection={this.props.globalState}>
-                    <FloatLineComponent label="sphereBaseSize" target={this._skeletonViewerDisplayOptions} propertyName='sphereBaseSize' onPropertyChangedObservable={this.props.onPropertyChangedObservable} onChange={(value) => { this.changeDisplayOptions('sphereBaseSize', value) }} />
-                    <FloatLineComponent label="sphereScaleUnit" target={this._skeletonViewerDisplayOptions} propertyName='sphereScaleUnit' onPropertyChangedObservable={this.props.onPropertyChangedObservable} onChange={(value) => { this.changeDisplayOptions('sphereScaleUnit', value) }} />
-                    <FloatLineComponent label="sphereFactor" target={this._skeletonViewerDisplayOptions} propertyName='sphereFactor' onPropertyChangedObservable={this.props.onPropertyChangedObservable} onChange={(value) => { this.changeDisplayOptions('sphereFactor', value) }} />
-                    <FloatLineComponent label="midStep" target={this._skeletonViewerDisplayOptions} propertyName='midStep' onPropertyChangedObservable={this.props.onPropertyChangedObservable} onChange={(value) => { this.changeDisplayOptions('midStep', value) }} />
-                    <FloatLineComponent label="midStepFactor" target={this._skeletonViewerDisplayOptions} propertyName='midStepFactor' onPropertyChangedObservable={this.props.onPropertyChangedObservable} onChange={(value) => { this.changeDisplayOptions('midStepFactor', value) }} />
+                (<LineContainerComponent title={getTrans('DISPLAYOPTIONS')} selection={this.props.globalState}>
+                    <FloatLineComponent label={getTrans('sphereBaseSize')} target={this._skeletonViewerDisplayOptions} propertyName='sphereBaseSize' onPropertyChangedObservable={this.props.onPropertyChangedObservable} onChange={(value) => { this.changeDisplayOptions('sphereBaseSize', value) }} />
+                    <FloatLineComponent label={getTrans('sphereScaleUnit')} target={this._skeletonViewerDisplayOptions} propertyName='sphereScaleUnit' onPropertyChangedObservable={this.props.onPropertyChangedObservable} onChange={(value) => { this.changeDisplayOptions('sphereScaleUnit', value) }} />
+                    <FloatLineComponent label={getTrans('sphereFactor')} target={this._skeletonViewerDisplayOptions} propertyName='sphereFactor' onPropertyChangedObservable={this.props.onPropertyChangedObservable} onChange={(value) => { this.changeDisplayOptions('sphereFactor', value) }} />
+                    <FloatLineComponent label={getTrans('midStep')} target={this._skeletonViewerDisplayOptions} propertyName='midStep' onPropertyChangedObservable={this.props.onPropertyChangedObservable} onChange={(value) => { this.changeDisplayOptions('midStep', value) }} />
+                    <FloatLineComponent label={getTrans('midStepFactor')} target={this._skeletonViewerDisplayOptions} propertyName='midStepFactor' onPropertyChangedObservable={this.props.onPropertyChangedObservable} onChange={(value) => { this.changeDisplayOptions('midStepFactor', value) }} />
                 </LineContainerComponent>)
         } else {
             displayOptions = (null)
@@ -184,19 +184,19 @@ export class SkeletonPropertyGridComponent extends React.Component<ISkeletonProp
                 <CustomPropertyGridComponent globalState={this.props.globalState} target={skeleton}
                     lockObject={this.props.lockObject}
                     onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                <LineContainerComponent title="GENERAL" selection={this.props.globalState}>
+                <LineContainerComponent title={getTrans('GENERAL')} selection={this.props.globalState}>
                     <TextLineComponent label="ID" value={skeleton.id} />
-                    <TextLineComponent label="Bone count" value={skeleton.bones.length.toString()} />
+                    <TextLineComponent label={getTrans('Bonecount')} value={skeleton.bones.length.toString()} />
                     {
                         skeleton.overrideMesh &&
-                        <TextLineComponent label="Override mesh" value={skeleton.overrideMesh.name} onLink={() => this.onOverrideMeshLink()} />
+                        <TextLineComponent label={getTrans('Overridemesh')} value={skeleton.overrideMesh.name} onLink={() => this.onOverrideMeshLink()} />
                     }
-                    <CheckBoxLineComponent label="Use texture to store matrices" target={skeleton} propertyName="useTextureToStoreBoneMatrices" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <ButtonLineComponent label="Return to rest" onClick={() => skeleton.returnToRest()} />
+                    <CheckBoxLineComponent label={getTrans('Usetexturetostorematrices')} target={skeleton} propertyName="useTextureToStoreBoneMatrices" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <ButtonLineComponent label={getTrans('Returntorest')} onClick={() => skeleton.returnToRest()} />
                 </LineContainerComponent>
-                <LineContainerComponent title="DEBUG" selection={this.props.globalState}>
-                    <CheckBoxLineComponent label="Enabled" isSelected={() => this._skeletonViewersEnabled} onSelect={() => this.switchSkeletonViewers()} />
-                    <OptionsLineComponent label="displayMode" options={debugModeOptions} target={this._skeletonViewerDisplayOptions} propertyName="displayMode" onPropertyChangedObservable={this.props.onPropertyChangedObservable} onSelect={() => this.changeDisplayMode()} />
+                <LineContainerComponent title={getTrans('DEBUG')} selection={this.props.globalState}>
+                    <CheckBoxLineComponent label={getTrans('Enabled')} isSelected={() => this._skeletonViewersEnabled} onSelect={() => this.switchSkeletonViewers()} />
+                    <OptionsLineComponent label={getTrans('displayMode')} options={debugModeOptions} target={this._skeletonViewerDisplayOptions} propertyName="displayMode" onPropertyChangedObservable={this.props.onPropertyChangedObservable} onSelect={() => this.changeDisplayMode()} />
                     {displayOptions}
                 </LineContainerComponent>
                 <AnimationGridComponent globalState={this.props.globalState} animatable={skeleton} scene={skeleton.getScene()} lockObject={this.props.lockObject} />

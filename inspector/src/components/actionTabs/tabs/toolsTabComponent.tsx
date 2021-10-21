@@ -32,7 +32,7 @@ import { FileButtonLineComponent } from "../../../sharedUiComponents/lines/fileB
 import { IndentedTextLineComponent } from "../../../sharedUiComponents/lines/indentedTextLineComponent";
 import { TextInputLineComponent } from "../../../sharedUiComponents/lines/textInputLineComponent";
 import { LockObject } from "../../../sharedUiComponents/tabs/propertyGrids/lockObject";
-
+import {getTrans} from '../../../translationLng';
 const GIF = require("gif.js.optimized");
 
 const envExportImageTypes = [
@@ -309,10 +309,10 @@ export class ToolsTabComponent extends PaneComponent {
         const sceneImportDefaults = this.props.globalState.sceneImportDefaults;
 
         var animationGroupLoadingModes = [
-            { label: "Clean", value: SceneLoaderAnimationGroupLoadingMode.Clean },
-            { label: "Stop", value: SceneLoaderAnimationGroupLoadingMode.Stop },
-            { label: "Sync", value: SceneLoaderAnimationGroupLoadingMode.Sync },
-            { label: "NoSync", value: SceneLoaderAnimationGroupLoadingMode.NoSync },
+            { label: getTrans('Clean'), value: SceneLoaderAnimationGroupLoadingMode.Clean },
+            { label: getTrans('Stop'), value: SceneLoaderAnimationGroupLoadingMode.Stop },
+            { label: getTrans('Sync'), value: SceneLoaderAnimationGroupLoadingMode.Sync },
+            { label: getTrans('NoSync'), value: SceneLoaderAnimationGroupLoadingMode.NoSync },
         ];
 
         return (
@@ -332,8 +332,8 @@ export class ToolsTabComponent extends PaneComponent {
                         {
                             this._useWidthHeight &&
                             <div className="secondLine">
-                                <NumericInputComponent label="Width" precision={0} step={1} value={this._screenShotSize.width ? this._screenShotSize.width : 512} onChange={value => this._screenShotSize.width = value} />
-                                <NumericInputComponent label="Height" precision={0} step={1} value={this._screenShotSize.height ? this._screenShotSize.height : 512} onChange={value => this._screenShotSize.height = value} />
+                                <NumericInputComponent label={getTrans('Width')} precision={0} step={1} value={this._screenShotSize.width ? this._screenShotSize.width : 512} onChange={value => this._screenShotSize.width = value} />
+                                <NumericInputComponent label={getTrans('Height')} precision={0} step={1} value={this._screenShotSize.height ? this._screenShotSize.height : 512} onChange={value => this._screenShotSize.height = value} />
                             </div>
                         }
                     </div>
@@ -341,7 +341,7 @@ export class ToolsTabComponent extends PaneComponent {
                 <LineContainerComponent title="GIF" selection={this.props.globalState}>
                     {
                         this._crunchingGIF &&
-                        <MessageLineComponent text="Creating the GIF file..." />
+                        <MessageLineComponent text={getTrans('CreatingtheGIFfile')} />
                     }
                     {
                         !this._crunchingGIF &&
@@ -350,15 +350,15 @@ export class ToolsTabComponent extends PaneComponent {
                     {
                         !this._crunchingGIF && !this._gifRecorder &&
                         <>
-                            <FloatLineComponent label="Resolution" isInteger={true} target={this._gifOptions} propertyName="width" />
-                            <FloatLineComponent label="Frequency (ms)" isInteger={true} target={this._gifOptions} propertyName="frequency" />
+                            <FloatLineComponent label={getTrans('Resolution')} isInteger={true} target={this._gifOptions} propertyName="width" />
+                            <FloatLineComponent label={getTrans('Frequencyms')} isInteger={true} target={this._gifOptions} propertyName="frequency" />
                         </>
                     }
                 </LineContainerComponent>
-                <LineContainerComponent title="REPLAY" selection={this.props.globalState}>
+                <LineContainerComponent title={getTrans('REPLAY')} selection={this.props.globalState}>
                     {
                         !this.props.globalState.recorder.isRecording &&
-                        <ButtonLineComponent label="Start recording" onClick={() => this.startRecording()} />
+                        <ButtonLineComponent label={getTrans('Startrecording')} onClick={() => this.startRecording()} />
                     }
                     {
                         this.props.globalState.recorder.isRecording &&
@@ -366,41 +366,41 @@ export class ToolsTabComponent extends PaneComponent {
                     }
                     {
                         this.props.globalState.recorder.isRecording &&
-                        <ButtonLineComponent label="Generate delta file" onClick={() => this.exportReplay()} />
+                        <ButtonLineComponent label={getTrans('Generatedeltafile')} onClick={() => this.exportReplay()} />
                     }
                     <FileButtonLineComponent label={`Apply delta file`} onClick={(file) => this.applyDelta(file)} accept=".json" />
                 </LineContainerComponent>
-                <LineContainerComponent title="SCENE IMPORT" selection={this.props.globalState}>
-                    <FileMultipleButtonLineComponent label="Import animations" accept="gltf" onClick={(evt: any) => this.importAnimations(evt)} />
-                    <CheckBoxLineComponent label="Overwrite animations" target={sceneImportDefaults} propertyName="overwriteAnimations" onSelect={value => {
+                <LineContainerComponent title={getTrans('SCENEIMPORT')} selection={this.props.globalState}>
+                    <FileMultipleButtonLineComponent label={getTrans('Importanimations')} accept="gltf" onClick={(evt: any) => this.importAnimations(evt)} />
+                    <CheckBoxLineComponent label={getTrans('Overwriteanimations')} target={sceneImportDefaults} propertyName="overwriteAnimations" onSelect={value => {
                         sceneImportDefaults["overwriteAnimations"] = value;
                         this.forceUpdate();
                     }} />
                     {
                         sceneImportDefaults["overwriteAnimations"] === false &&
-                        <OptionsLineComponent label="Animation merge mode" options={animationGroupLoadingModes} target={sceneImportDefaults} propertyName="animationGroupLoadingMode" />
+                        <OptionsLineComponent label={getTrans('Animationmergemode')} options={animationGroupLoadingModes} target={sceneImportDefaults} propertyName="animationGroupLoadingMode" />
                     }
                 </LineContainerComponent>
-                <LineContainerComponent title="SCENE EXPORT" selection={this.props.globalState}>
+                <LineContainerComponent title={getTrans('SCENEEXPORT')} selection={this.props.globalState}>
                     {
                         this._isExporting &&
-                        <TextLineComponent label="Please wait..exporting" ignoreValue={true} />
+                        <TextLineComponent label={getTrans('Pleasewaitexporting')} ignoreValue={true} />
                     }
                     {
                         !this._isExporting &&
                         <>
-                            <ButtonLineComponent label="Export to GLB" onClick={() => this.exportGLTF()} />
-                            <ButtonLineComponent label="Export to Babylon" onClick={() => this.exportBabylon()} />
+                            <ButtonLineComponent label={getTrans('ExporttoGLB')} onClick={() => this.exportGLTF()} />
+                            <ButtonLineComponent label={getTrans('ExporttoBabylon')} onClick={() => this.exportBabylon()} />
                             {
                                 !scene.getEngine().premultipliedAlpha && scene.environmentTexture && scene.environmentTexture._prefiltered && scene.activeCamera &&
                                 <>
-                                    <ButtonLineComponent label="Generate .env texture" onClick={() => this.createEnvTexture()} />
-                                    <OptionsLineComponent label="Image type" options={envExportImageTypes} target={this._envOptions} propertyName="imageTypeIndex" onSelect={() => {
+                                    <ButtonLineComponent label={getTrans('Generateenvtexture')} onClick={() => this.createEnvTexture()} />
+                                    <OptionsLineComponent label={getTrans('Imagetype')} options={envExportImageTypes} target={this._envOptions} propertyName="imageTypeIndex" onSelect={() => {
                                         this.forceUpdate();
                                     }} />
                                     {
                                         this._envOptions.imageTypeIndex > 0 &&
-                                        <FloatLineComponent label="Quality" isInteger={false} min={0} max={1} target={this._envOptions} propertyName="imageQuality" />
+                                        <FloatLineComponent label={getTrans('Quality')} isInteger={false} min={0} max={1} target={this._envOptions} propertyName="imageQuality" />
                                     }
                                 </>
                             }
@@ -411,10 +411,10 @@ export class ToolsTabComponent extends PaneComponent {
                     (BABYLON as any).GLTFFileLoader &&
                     <GLTFComponent scene={scene} globalState={this.props.globalState!} />
                 }
-                <LineContainerComponent title="REFLECTOR" selection={this.props.globalState}>
-                    <TextInputLineComponent lockObject={this._lockObject} label="Hostname" target={this} propertyName="_reflectorHostname" />
-                    <FloatLineComponent lockObject={this._lockObject} label="Port" target={this} propertyName="_reflectorPort" isInteger={true} />
-                    <ButtonLineComponent label="Connect" onClick={() => this.connectReflector()} />
+                <LineContainerComponent title={getTrans('REFLECTOR')} selection={this.props.globalState}>
+                    <TextInputLineComponent lockObject={this._lockObject} label={getTrans('Hostname')} target={this} propertyName="_reflectorHostname" />
+                    <FloatLineComponent lockObject={this._lockObject} label={getTrans('Port')} target={this} propertyName="_reflectorPort" isInteger={true} />
+                    <ButtonLineComponent label={getTrans('Connect')} onClick={() => this.connectReflector()} />
                 </LineContainerComponent>
             </div>
         );

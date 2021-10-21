@@ -11,6 +11,7 @@ import { GridMaterial } from "babylonjs-materials/grid/gridMaterial";
 import { CheckBoxLineComponent } from "../../../../sharedUiComponents/lines/checkBoxLineComponent";
 import { GlobalState } from "../../../globalState";
 import { CreateGround } from "babylonjs/Meshes/Builders/groundBuilder";
+import {getTrans} from '../../../../translationLng';
 
 interface IRenderGridPropertyGridComponentProps {
     globalState: GlobalState;
@@ -79,7 +80,7 @@ export class RenderGridPropertyGridComponent extends React.Component<IRenderGrid
     render() {
         return (
             <div>
-                <CheckBoxLineComponent label="Render grid" isSelected={() => this.state.isEnabled} onSelect={() => this.addOrRemoveGrid()} />
+                <CheckBoxLineComponent label={getTrans('Rendergrid')} isSelected={() => this.state.isEnabled} onSelect={() => this.addOrRemoveGrid()} />
             </div>
         );
     }

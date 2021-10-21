@@ -13,7 +13,7 @@ import { SliderLineComponent } from '../../../../../sharedUiComponents/lines/sli
 import { GlobalState } from '../../../../globalState';
 import { ButtonLineComponent } from '../../../../../sharedUiComponents/lines/buttonLineComponent';
 import { TextInputLineComponent } from '../../../../../sharedUiComponents/lines/textInputLineComponent';
-
+import {getTrans} from '../../../../../translationLng';
 interface ICommonPostProcessPropertyGridComponentProps {
     globalState: GlobalState;
     postProcess: PostProcess;
@@ -31,26 +31,26 @@ export class CommonPostProcessPropertyGridComponent extends React.Component<ICom
 
         return (
             <div>
-                <LineContainerComponent title="GENERAL" selection={this.props.globalState}>
-                    <TextLineComponent label="Class" value={postProcess.getClassName()} />
-                    <TextInputLineComponent lockObject={this.props.lockObject} label="Name" target={postProcess} propertyName="name" onPropertyChangedObservable={this.props.onPropertyChangedObservable}/>
+                <LineContainerComponent title={getTrans('GENERAL')}selection={this.props.globalState}>
+                    <TextLineComponent label={getTrans('Class')} value={postProcess.getClassName()} />
+                    <TextInputLineComponent lockObject={this.props.lockObject} label={getTrans('Name')} target={postProcess} propertyName="name" onPropertyChangedObservable={this.props.onPropertyChangedObservable}/>
                     {
                         postProcess.width &&
-                        <TextLineComponent label="Width" value={postProcess.width.toString()} />
+                        <TextLineComponent label={getTrans('Width')} value={postProcess.width.toString()} />
                     }
                     {
                         postProcess.height &&
-                        <TextLineComponent label="Height" value={postProcess.height.toString()} />
+                        <TextLineComponent label={getTrans('Height')} value={postProcess.height.toString()} />
                     }
-                    <CheckBoxLineComponent label="Auto clear" target={postProcess} propertyName="autoClear" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <CheckBoxLineComponent label={getTrans('Autoclear')} target={postProcess} propertyName="autoClear" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
                     {
                         postProcess.clearColor &&
-                        <Color3LineComponent label="Clear color" target={postProcess} propertyName="clearColor" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                        <Color3LineComponent label={getTrans('Clearcolor')} target={postProcess} propertyName="clearColor" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
                     }
-                    <CheckBoxLineComponent label="Pixel perfect" target={postProcess} propertyName="enablePixelPerfectMode" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <CheckBoxLineComponent label="Fullscreen viewport" target={postProcess} propertyName="forceFullscreenViewport" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <SliderLineComponent label="Samples" target={postProcess} propertyName="samples" minimum={1} maximum={8} step={1} decimalCount={0} onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <ButtonLineComponent label="Dispose" onClick={() => {
+                    <CheckBoxLineComponent label={getTrans('Pixelperfect')} target={postProcess} propertyName="enablePixelPerfectMode" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <CheckBoxLineComponent label={getTrans('Fullscreenviewport')} target={postProcess} propertyName="forceFullscreenViewport" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <SliderLineComponent label={getTrans('Samples')} target={postProcess} propertyName="samples" minimum={1} maximum={8} step={1} decimalCount={0} onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <ButtonLineComponent label={getTrans('Dispose')} onClick={() => {
                         postProcess.dispose();
                         this.props.globalState.onSelectionChangedObservable.notifyObservers(null);
                     }} />                      

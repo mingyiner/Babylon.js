@@ -5,7 +5,7 @@ import { GradientStepComponent } from './gradientStepComponent';
 import { Color3 } from 'babylonjs/Maths/math.color';
 import { ButtonLineComponent } from '../../../sharedUiComponents/lines/buttonLineComponent';
 import { IPropertyComponentProps } from './propertyComponentProps';
-
+import {getTrans} from '../../../translationLng';
 export class GradientPropertyTabComponent extends React.Component<IPropertyComponentProps> {
 
     private _gradientBlock: GradientBlock;
@@ -55,7 +55,7 @@ export class GradientPropertyTabComponent extends React.Component<IPropertyCompo
     render() {
         return (
             <div>
-                <ButtonLineComponent label="Add new step" onClick={() => this.addNewStep()} />
+                <ButtonLineComponent label={getTrans('Addnewstep')} onClick={() => this.addNewStep()} />
                 {
                      this._gradientBlock.colorSteps.map((c, i) => {
                         return (

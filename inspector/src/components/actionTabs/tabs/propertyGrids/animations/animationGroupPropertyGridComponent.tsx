@@ -15,7 +15,7 @@ import { GlobalState } from "../../../../globalState";
 import { TextInputLineComponent } from "../../../../../sharedUiComponents/lines/textInputLineComponent";
 import { Context } from "./curveEditor/context";
 import { AnimationCurveEditorComponent } from "./curveEditor/animationCurveEditorComponent";
-
+import {getTrans} from '../../../../../translationLng';
 interface IAnimationGroupGridComponentProps {
     globalState: GlobalState;
     animationGroup: AnimationGroup;
@@ -145,20 +145,20 @@ export class AnimationGroupGridComponent extends React.Component<
 
         return (
             <div className="pane">
-                <LineContainerComponent title="GENERAL">
-                    <TextLineComponent label="Class" value={animationGroup.getClassName()} />
+                <LineContainerComponent title={getTrans('GENERAL')}>
+                    <TextLineComponent label={getTrans('Class')} value={animationGroup.getClassName()} />
                     <TextInputLineComponent
                         lockObject={this.props.lockObject}
-                        label="Name"
+                        label={getTrans('Name')}
                         target={animationGroup}
                         propertyName="name"
                         onPropertyChangedObservable={this.props.onPropertyChangedObservable}
                     />
                 </LineContainerComponent>
-                <LineContainerComponent title="CONTROLS">
+                <LineContainerComponent title={getTrans('CONTROLS')}>
                     <ButtonLineComponent label={playButtonText} onClick={() => this.playOrPause()} />
                     <SliderLineComponent
-                        label="Speed ratio"
+                        label={getTrans('Speedratio')}
                         minimum={0}
                         maximum={10}
                         step={0.1}
@@ -168,7 +168,7 @@ export class AnimationGroupGridComponent extends React.Component<
                     />
                     <SliderLineComponent
                         ref={this.timelineRef}
-                        label="Current frame"
+                        label={getTrans('Currentframe')}
                         minimum={animationGroup.from}
                         maximum={animationGroup.to}
                         step={(animationGroup.to - animationGroup.from) / 1000.0}
@@ -176,15 +176,15 @@ export class AnimationGroupGridComponent extends React.Component<
                         onInput={(value) => this.onCurrentFrameChange(value)}
                     />
                 </LineContainerComponent>
-                <LineContainerComponent title="INFOS">
+                <LineContainerComponent title={getTrans('INFOS')}>
                     <TextLineComponent
-                        label="Animation count"
+                        label={getTrans('Animationcount')}
                         value={animationGroup.targetedAnimations.length.toString()}
                     />
                     <AnimationCurveEditorComponent globalState={this.props.globalState} context={this._animationCurveEditorContext}/>
                     <TextLineComponent label="From" value={animationGroup.from.toFixed(2)} />
                     <TextLineComponent label="To" value={animationGroup.to.toFixed(2)} />
-                    <TextLineComponent label="Unique ID" value={animationGroup.uniqueId.toString()} />
+                    <TextLineComponent label={getTrans('UniqueID')} value={animationGroup.uniqueId.toString()} />
                 </LineContainerComponent>
             </div>
         );

@@ -25,7 +25,7 @@ import { LockObject } from "../../../../sharedUiComponents/tabs/propertyGrids/lo
 import { GlobalState } from '../../../globalState';
 import { ButtonLineComponent } from '../../../../sharedUiComponents/lines/buttonLineComponent';
 import { AnimationGridComponent } from './animations/animationPropertyGridComponent';
-
+import {getTrans} from '../../../../translationLng';
 interface IScenePropertyGridComponentProps {
     globalState: GlobalState;
     scene: Scene;
@@ -130,62 +130,62 @@ export class ScenePropertyGridComponent extends React.Component<IScenePropertyGr
         const imageProcessing = scene.imageProcessingConfiguration;
 
         var toneMappingOptions = [
-            { label: "Standard", value: ImageProcessingConfiguration.TONEMAPPING_STANDARD },
-            { label: "ACES", value: ImageProcessingConfiguration.TONEMAPPING_ACES }
+            { label: getTrans('Standard'), value: ImageProcessingConfiguration.TONEMAPPING_STANDARD },
+            { label: getTrans('ACES'), value: ImageProcessingConfiguration.TONEMAPPING_ACES }
         ];
 
         var vignetteModeOptions = [
-            { label: "Multiply", value: ImageProcessingConfiguration.VIGNETTEMODE_MULTIPLY },
-            { label: "Opaque", value: ImageProcessingConfiguration.VIGNETTEMODE_OPAQUE }
+            { label: getTrans('Multiply_'), value: ImageProcessingConfiguration.VIGNETTEMODE_MULTIPLY },
+            { label: getTrans('Opaque_'), value: ImageProcessingConfiguration.VIGNETTEMODE_OPAQUE }
         ];
 
         return (
             <div className="pane">
-                <LineContainerComponent title="RENDERING MODE" selection={this.props.globalState}>
-                    <RadioButtonLineComponent onSelectionChangedObservable={this._renderingModeGroupObservable} label="Point" isSelected={() => scene.forcePointsCloud} onSelect={() => this.setRenderingModes(true, false)} />
-                    <RadioButtonLineComponent onSelectionChangedObservable={this._renderingModeGroupObservable} label="Wireframe" isSelected={() => scene.forceWireframe} onSelect={() => this.setRenderingModes(false, true)} />
-                    <RadioButtonLineComponent onSelectionChangedObservable={this._renderingModeGroupObservable} label="Solid" isSelected={() => !scene.forcePointsCloud && !scene.forceWireframe} onSelect={() => this.setRenderingModes(false, false)} />
+                <LineContainerComponent title={getTrans('RENDERINGMODE')} selection={this.props.globalState}>
+                    <RadioButtonLineComponent onSelectionChangedObservable={this._renderingModeGroupObservable} label={getTrans('Point_')} isSelected={() => scene.forcePointsCloud} onSelect={() => this.setRenderingModes(true, false)} />
+                    <RadioButtonLineComponent onSelectionChangedObservable={this._renderingModeGroupObservable} label={getTrans('Wireframe_')} isSelected={() => scene.forceWireframe} onSelect={() => this.setRenderingModes(false, true)} />
+                    <RadioButtonLineComponent onSelectionChangedObservable={this._renderingModeGroupObservable} label={getTrans('Solid')} isSelected={() => !scene.forcePointsCloud && !scene.forceWireframe} onSelect={() => this.setRenderingModes(false, false)} />
                 </LineContainerComponent>
-                <LineContainerComponent title="ENVIRONMENT" selection={this.props.globalState}>
-                    <Color3LineComponent label="Clear color" target={scene} propertyName="clearColor" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <CheckBoxLineComponent label="Clear color enabled" target={scene} propertyName="autoClear" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <Color3LineComponent label="Ambient color" target={scene} propertyName="ambientColor" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <CheckBoxLineComponent label="Environment texture (IBL)" isSelected={() => scene.environmentTexture != null} onSelect={() => this.switchIBL()} />
+                <LineContainerComponent title={getTrans('ENVIRONMENT')} selection={this.props.globalState}>
+                    <Color3LineComponent label={getTrans('Clearcolor')} target={scene} propertyName="clearColor" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <CheckBoxLineComponent label={getTrans('Clearcolorenabled')} target={scene} propertyName="autoClear" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <Color3LineComponent label={getTrans('Ambientcolor')} target={scene} propertyName="ambientColor" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <CheckBoxLineComponent label={getTrans('EnvironmentTexture')} isSelected={() => scene.environmentTexture != null} onSelect={() => this.switchIBL()} />
                     {
                         scene.environmentTexture &&
                         <TextureLinkLineComponent label="Env. texture" texture={scene.environmentTexture} onSelectionChangedObservable={this.props.onSelectionChangedObservable} />
                     }
-                    <FileButtonLineComponent label="Update environment texture" onClick={(file) => this.updateEnvironmentTexture(file)} accept=".dds, .env" />
-                    <SliderLineComponent minimum={0} maximum={2} step={0.01} label="IBL Intensity" target={scene} propertyName="environmentIntensity" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <FileButtonLineComponent label={getTrans('Updateenvironmenttexture')} onClick={(file) => this.updateEnvironmentTexture(file)} accept=".dds, .env" />
+                    <SliderLineComponent minimum={0} maximum={2} step={0.01} label={getTrans('IBLIntensity')} target={scene} propertyName="environmentIntensity" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
                     <FogPropertyGridComponent globalState={this.props.globalState} lockObject={this.props.lockObject} scene={scene} onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
                 </LineContainerComponent>
                 <AnimationGridComponent globalState={this.props.globalState} animatable={scene} scene={scene} lockObject={this.props.lockObject} />
-                <LineContainerComponent title="MATERIAL IMAGE PROCESSING" selection={this.props.globalState}>
-                    <SliderLineComponent minimum={0} maximum={4} step={0.1} label="Contrast" target={imageProcessing} propertyName="contrast" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <SliderLineComponent minimum={0} maximum={4} step={0.1} label="Exposure" target={imageProcessing} propertyName="exposure" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <CheckBoxLineComponent label="Tone mapping" target={imageProcessing} propertyName="toneMappingEnabled" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <OptionsLineComponent label="Tone mapping type" options={toneMappingOptions} target={imageProcessing} propertyName="toneMappingType" onPropertyChangedObservable={this.props.onPropertyChangedObservable} onSelect={(value) => this.setState({ mode: value })} />
-                    <CheckBoxLineComponent label="Vignette" target={imageProcessing} propertyName="vignetteEnabled" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <SliderLineComponent minimum={0} maximum={4} step={0.1} label="Vignette weight" target={imageProcessing} propertyName="vignetteWeight" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <SliderLineComponent minimum={0} maximum={1} step={0.1} label="Vignette stretch" target={imageProcessing} propertyName="vignetteStretch" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <SliderLineComponent minimum={0} maximum={Math.PI} step={0.1} label="Vignette FOV" target={imageProcessing} propertyName="vignetteCameraFov" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <SliderLineComponent minimum={0} maximum={1} step={0.1} label="Vignette center X" target={imageProcessing} propertyName="vignetteCentreX" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <SliderLineComponent minimum={0} maximum={1} step={0.1} label="Vignette center Y" target={imageProcessing} propertyName="vignetteCentreY" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <Color3LineComponent label="Vignette color" target={imageProcessing} propertyName="vignetteColor" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <OptionsLineComponent label="Vignette blend mode" options={vignetteModeOptions} target={imageProcessing} propertyName="vignetteBlendMode" onPropertyChangedObservable={this.props.onPropertyChangedObservable} onSelect={(value) => this.setState({ mode: value })} />
+                <LineContainerComponent title={getTrans('MATERIALIMAGEPROCESSING')} selection={this.props.globalState}>
+                    <SliderLineComponent minimum={0} maximum={4} step={0.1} label={getTrans('Contrast')} target={imageProcessing} propertyName="contrast" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <SliderLineComponent minimum={0} maximum={4} step={0.1} label={getTrans('Exposure')} target={imageProcessing} propertyName="exposure" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <CheckBoxLineComponent label={getTrans('Tonemapping')} target={imageProcessing} propertyName="toneMappingEnabled" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <OptionsLineComponent label={getTrans('Tonemappingtype')} options={toneMappingOptions} target={imageProcessing} propertyName="toneMappingType" onPropertyChangedObservable={this.props.onPropertyChangedObservable} onSelect={(value) => this.setState({ mode: value })} />
+                    <CheckBoxLineComponent label={getTrans('Vignette')} target={imageProcessing} propertyName="vignetteEnabled" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <SliderLineComponent minimum={0} maximum={4} step={0.1} label={getTrans('Vignetteweight')} target={imageProcessing} propertyName="vignetteWeight" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <SliderLineComponent minimum={0} maximum={1} step={0.1} label={getTrans('Vignettestretch')} target={imageProcessing} propertyName="vignetteStretch" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <SliderLineComponent minimum={0} maximum={Math.PI} step={0.1} label={getTrans('VignetteFOV')} target={imageProcessing} propertyName="vignetteCameraFov" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <SliderLineComponent minimum={0} maximum={1} step={0.1} label={getTrans('VignettecenterX')} target={imageProcessing} propertyName="vignetteCentreX" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <SliderLineComponent minimum={0} maximum={1} step={0.1} label={getTrans('VignettecenterY')} target={imageProcessing} propertyName="vignetteCentreY" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <Color3LineComponent label={getTrans('Vignettecolor')} target={imageProcessing} propertyName="vignetteColor" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <OptionsLineComponent label={getTrans('Vignetteblendmode')} options={vignetteModeOptions} target={imageProcessing} propertyName="vignetteBlendMode" onPropertyChangedObservable={this.props.onPropertyChangedObservable} onSelect={(value) => this.setState({ mode: value })} />
                 </LineContainerComponent>
                 {
                     dummy !== null &&
-                    <LineContainerComponent title="PHYSICS" closed={true} selection={this.props.globalState}>
-                        <FloatLineComponent lockObject={this.props.lockObject} label="Time step" target={dummy} propertyName="timeStep" onChange={(newValue) => this.updateTimeStep(newValue)} onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                        <Vector3LineComponent label="Gravity" target={dummy} propertyName="gravity" onChange={(newValue) => this.updateGravity(newValue)} onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <LineContainerComponent title={getTrans('PHYSICS')} closed={true} selection={this.props.globalState}>
+                        <FloatLineComponent lockObject={this.props.lockObject} label={getTrans('Timestep')} target={dummy} propertyName="timeStep" onChange={(newValue) => this.updateTimeStep(newValue)} onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                        <Vector3LineComponent label={getTrans('Gravity')} target={dummy} propertyName="gravity" onChange={(newValue) => this.updateGravity(newValue)} onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
                     </LineContainerComponent>
                 }
-                <LineContainerComponent title="COLLISIONS" closed={true} selection={this.props.globalState}>
-                    <Vector3LineComponent label="Gravity" target={scene} propertyName="gravity" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                <LineContainerComponent title={getTrans('COLLISIONS')} closed={true} selection={this.props.globalState}>
+                    <Vector3LineComponent label={getTrans('Gravity')} target={scene} propertyName="gravity" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
                 </LineContainerComponent>
-                <LineContainerComponent title="SHADOWS" closed={true} selection={this.props.globalState}>
-                    <ButtonLineComponent label="Normalize scene" onClick={() => this.normalizeScene()} />
+                <LineContainerComponent title={getTrans('SHADOWS')} closed={true} selection={this.props.globalState}>
+                    <ButtonLineComponent label={getTrans('Normalizescene')} onClick={() => this.normalizeScene()} />
                 </LineContainerComponent>
             </div>
         );

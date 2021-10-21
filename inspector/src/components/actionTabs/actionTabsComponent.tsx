@@ -13,7 +13,7 @@ import { HeaderComponent } from "../headerComponent";
 import { ToolsTabComponent } from "./tabs/toolsTabComponent";
 import { GlobalState } from "../../components/globalState";
 import { SettingsTabComponent } from './tabs/settingsTabComponent';
-
+import {getTrans} from '../../translationLng';
 require("./actionTabs.scss");
 
 interface IActionTabsComponentProps {
@@ -89,14 +89,14 @@ export class ActionTabsComponent extends React.Component<IActionTabsComponentPro
             return (
                 <TabsComponent selectedIndex={this.state.selectedIndex} onSelectedIndexChange={(value) => this.changeSelectedTab(value)}>
                     <PropertyGridTabComponent
-                        title="Properties" icon={faFileAlt} scene={this.props.scene} selectedEntity={this.state.selectedEntity}
+                        title={getTrans('Properties')} icon={faFileAlt} scene={this.props.scene} selectedEntity={this.state.selectedEntity}
                         globalState={this.props.globalState}
                         onSelectionChangedObservable={this.props.globalState.onSelectionChangedObservable}
                         onPropertyChangedObservable={this.props.globalState.onPropertyChangedObservable} />
-                    <DebugTabComponent title="Debug" icon={faBug} scene={this.props.scene} globalState={this.props.globalState} />
-                    <StatisticsTabComponent title="Statistics" icon={faChartBar} scene={this.props.scene} globalState={this.props.globalState} />
-                    <ToolsTabComponent title="Tools" icon={faWrench} scene={this.props.scene} globalState={this.props.globalState} />
-                    <SettingsTabComponent title="Settings" icon={faCog} scene={this.props.scene} globalState={this.props.globalState} />
+                    <DebugTabComponent title={getTrans('Debug')} icon={faBug} scene={this.props.scene} globalState={this.props.globalState} />
+                    <StatisticsTabComponent title={getTrans('Statistics')} icon={faChartBar} scene={this.props.scene} globalState={this.props.globalState} />
+                    <ToolsTabComponent title={getTrans('Tools')} icon={faWrench} scene={this.props.scene} globalState={this.props.globalState} />
+                    <SettingsTabComponent title={getTrans('Settings')} icon={faCog} scene={this.props.scene} globalState={this.props.globalState} />
                 </TabsComponent>
             )
         } else {

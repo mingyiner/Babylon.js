@@ -12,7 +12,7 @@ import { TextureLinkLineComponent } from "../../../lines/textureLinkLineComponen
 import { LockObject } from "../../../../../sharedUiComponents/tabs/propertyGrids/lockObject";
 import { GlobalState } from '../../../../globalState';
 import { CheckBoxLineComponent } from '../../../../../sharedUiComponents/lines/checkBoxLineComponent';
-
+import { getTrans } from "../../../../../translationLng";
 interface IPBRSpecularGlossinessMaterialPropertyGridComponentProps {
     globalState: GlobalState;
     material: PBRSpecularGlossinessMaterial,
@@ -33,13 +33,13 @@ export class PBRSpecularGlossinessMaterialPropertyGridComponent extends React.Co
         const onDebugSelectionChangeObservable = this._onDebugSelectionChangeObservable;
 
         return (
-            <LineContainerComponent title="TEXTURES" selection={this.props.globalState}>
-                <TextureLinkLineComponent label="Diffuse" texture={material.diffuseTexture} propertyName="diffuseTexture" material={material} onSelectionChangedObservable={this.props.onSelectionChangedObservable} onDebugSelectionChangeObservable={onDebugSelectionChangeObservable} />
-                <TextureLinkLineComponent label="Specular glossiness" texture={material.specularGlossinessTexture} propertyName="specularGlossinessTexture" material={material} onSelectionChangedObservable={this.props.onSelectionChangedObservable} onDebugSelectionChangeObservable={onDebugSelectionChangeObservable} />
-                <TextureLinkLineComponent label="Normal" texture={material.normalTexture} propertyName="normalTexture" material={material} onSelectionChangedObservable={this.props.onSelectionChangedObservable} onDebugSelectionChangeObservable={onDebugSelectionChangeObservable} />
-                <TextureLinkLineComponent label="Environment" texture={material.environmentTexture} propertyName="environmentTexture" material={material} onSelectionChangedObservable={this.props.onSelectionChangedObservable} onDebugSelectionChangeObservable={onDebugSelectionChangeObservable} />
-                <TextureLinkLineComponent label="Emissive" texture={material.emissiveTexture} propertyName="emissiveTexture" material={material} onSelectionChangedObservable={this.props.onSelectionChangedObservable} onDebugSelectionChangeObservable={onDebugSelectionChangeObservable} />
-                <TextureLinkLineComponent label="Lightmap" texture={material.lightmapTexture} propertyName="lightmapTexture" material={material} onSelectionChangedObservable={this.props.onSelectionChangedObservable} onDebugSelectionChangeObservable={onDebugSelectionChangeObservable} />
+            <LineContainerComponent title={getTrans('Textures')} selection={this.props.globalState}>
+                <TextureLinkLineComponent label={getTrans('addDiffuse')} texture={material.diffuseTexture} propertyName="diffuseTexture" material={material} onSelectionChangedObservable={this.props.onSelectionChangedObservable} onDebugSelectionChangeObservable={onDebugSelectionChangeObservable} />
+                <TextureLinkLineComponent label={getTrans('AddSpecularglossinesst')} texture={material.specularGlossinessTexture} propertyName="specularGlossinessTexture" material={material} onSelectionChangedObservable={this.props.onSelectionChangedObservable} onDebugSelectionChangeObservable={onDebugSelectionChangeObservable} />
+                <TextureLinkLineComponent label={getTrans('AddNormalT')} texture={material.normalTexture} propertyName="normalTexture" material={material} onSelectionChangedObservable={this.props.onSelectionChangedObservable} onDebugSelectionChangeObservable={onDebugSelectionChangeObservable} />
+                <TextureLinkLineComponent label={getTrans('AddEnvironmentT')} texture={material.environmentTexture} propertyName="environmentTexture" material={material} onSelectionChangedObservable={this.props.onSelectionChangedObservable} onDebugSelectionChangeObservable={onDebugSelectionChangeObservable} />
+                <TextureLinkLineComponent label={getTrans('emissive')} texture={material.emissiveTexture} propertyName="emissiveTexture" material={material} onSelectionChangedObservable={this.props.onSelectionChangedObservable} onDebugSelectionChangeObservable={onDebugSelectionChangeObservable} />
+                <TextureLinkLineComponent label={getTrans('Lightmap')} texture={material.lightmapTexture} propertyName="lightmapTexture" material={material} onSelectionChangedObservable={this.props.onSelectionChangedObservable} onDebugSelectionChangeObservable={onDebugSelectionChangeObservable} />
             </LineContainerComponent>
         )
     }
@@ -51,16 +51,16 @@ export class PBRSpecularGlossinessMaterialPropertyGridComponent extends React.Co
             <div className="pane">
                 <CommonMaterialPropertyGridComponent globalState={this.props.globalState} lockObject={this.props.lockObject} material={material} onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
                 {this.renderTextures()}
-                <LineContainerComponent title="LIGHTING & COLORS" selection={this.props.globalState}>
-                    <Color3LineComponent label="Diffuse" target={material} propertyName="diffuseColor" onPropertyChangedObservable={this.props.onPropertyChangedObservable} isLinear={true} />
-                    <Color3LineComponent label="Specular" target={material} propertyName="specularColor" onPropertyChangedObservable={this.props.onPropertyChangedObservable} isLinear={true} />
+                <LineContainerComponent title={getTrans('LIGHTINGCOLORS')} selection={this.props.globalState}>
+                    <Color3LineComponent label={getTrans('Diffuse')} target={material} propertyName="diffuseColor" onPropertyChangedObservable={this.props.onPropertyChangedObservable} isLinear={true} />
+                    <Color3LineComponent label={getTrans('Specular')} target={material} propertyName="specularColor" onPropertyChangedObservable={this.props.onPropertyChangedObservable} isLinear={true} />
                 </LineContainerComponent>
-                <LineContainerComponent title="LEVELS" closed={true} selection={this.props.globalState}>
-                    <SliderLineComponent label="Glossiness" target={material} propertyName="glossiness" minimum={0} maximum={1} step={0.01} onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                <LineContainerComponent title={getTrans('LEVELS')} closed={true} selection={this.props.globalState}>
+                    <SliderLineComponent label={getTrans('Glossiness')} target={material} propertyName="glossiness" minimum={0} maximum={1} step={0.01} onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
                 </LineContainerComponent>
-                <LineContainerComponent title="NORMAL MAP" closed={true} selection={this.props.globalState}>
-                    <CheckBoxLineComponent label="Invert X axis" target={material} propertyName="invertNormalMapX" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                    <CheckBoxLineComponent label="Invert Y axis" target={material} propertyName="invertNormalMapY" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                <LineContainerComponent title={getTrans('NORMALMAP_')} closed={true} selection={this.props.globalState}>
+                    <CheckBoxLineComponent label={getTrans('InvertXaxis_')} target={material} propertyName="invertNormalMapX" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
+                    <CheckBoxLineComponent label={getTrans('InvertYaxis_')} target={material} propertyName="invertNormalMapY" onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
                 </LineContainerComponent>
             </div>
         );

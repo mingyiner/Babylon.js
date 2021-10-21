@@ -10,6 +10,7 @@ import { GlobalState } from '../../../../globalState';
 import { TextLineComponent } from '../../../../../sharedUiComponents/lines/textLineComponent';
 import { Material } from 'babylonjs/Materials/material';
 import { MultiMaterial } from 'babylonjs/Materials/multiMaterial';
+import { getTrans } from "../../../../../translationLng";
 
 interface IMultiMaterialPropertyGridComponentProps {
     globalState: GlobalState;
@@ -36,12 +37,12 @@ export class MultiMaterialPropertyGridComponent extends React.Component<IMultiMa
         const material = this.props.material;
 
         return (
-            <LineContainerComponent title="CHILDREN" selection={this.props.globalState}>
+            <LineContainerComponent title={getTrans('CHILDREN')} selection={this.props.globalState}>
                 {
                     material.subMaterials.map((mat, i) => {
                         if (mat) {
                             return (
-                                <TextLineComponent key={"Material #" + i} label={"Material #" + i} value={mat.name} onLink={() => this.onMaterialLink(mat)} />
+                                <TextLineComponent key={getTrans('Material') +" #" + i} label={getTrans('Material') +" #"+ i} value={mat.name} onLink={() => this.onMaterialLink(mat)} />
                             )
                         }
                         return null;                        
